@@ -28,6 +28,7 @@ Plugin 'guns/vim-clojure-static'
 Plugin 'kien/rainbow_parentheses.vim'
 Plugin 'tpope/vim-fireplace.git'
 Plugin 'vim-scripts/paredit.vim'
+Plugin 'venantius/vim-cljfmt'
 
 call vundle#end()
 
@@ -87,3 +88,6 @@ noremap <F3> :Autoformat<CR><CR>
 
 let mapleader=","
 
+imap jk <Esc>
+map ee :%Eval<CR>
+hi MatchParen cterm=bold ctermbg=none ctermfg=magenta
