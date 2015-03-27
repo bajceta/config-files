@@ -12,6 +12,7 @@ call vundle#begin()
 Plugin 'gmarik/Vundle.vim'
 " CtrlP
 Plugin 'kien/ctrlp.vim'
+Plugin 'scrooloose/nerdtree.git'
 let g:ctrlp_custom_ignore = {
   \ 'dir':  '\v[\/]\.(git|hg|svn)$',
   \ 'file': '\v\.(exe|so|dll)$',
@@ -23,6 +24,7 @@ Plugin 'flazz/vim-colorschemes'
 Plugin 'Chiel92/vim-autoformat'
 " needs : npm install -g js-beautify
 Plugin 'marijnh/tern_for_vim'
+Plugin 'scrooloose/nerdcommenter.git'
 
 " Clojure
 Plugin 'guns/vim-clojure-static'
@@ -30,6 +32,8 @@ Plugin 'kien/rainbow_parentheses.vim'
 Plugin 'tpope/vim-fireplace.git'
 Plugin 'vim-scripts/paredit.vim'
 Plugin 'venantius/vim-cljfmt'
+
+
 
 call vundle#end()
 
@@ -90,5 +94,5 @@ noremap <F3> :Autoformat<CR><CR>
 let mapleader=","
 
 imap jk <Esc>
-map ee :%Eval<CR>
+map rr :%Eval<CR>
 hi MatchParen cterm=bold ctermbg=none ctermfg=magenta
