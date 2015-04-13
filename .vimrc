@@ -76,7 +76,7 @@ set expandtab
 
 filetype plugin indent on
 syntax on
-colors darkblue
+colors abra
 
 set nobackup       
 set nowritebackup 

@@ -152,7 +152,13 @@ bar {
         status_command i3status
 }
 exec --no-startup-id nm-applet
-exec /usr/libexec/gnome-settings-daemon
+exec --no-startup-id unity-settings-daemon
+exec --no-startup-id gnome-sound-applet
+#exec /usr/lib/x86_64-linux-gnu/indicator-sound/indicator-sound-service
+exec gnome-keyring-daemon
+exec /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1 
 
 bindsym XF86AudioRaiseVolume exec amixer -q set Master 2dB+ unmute
 bindsym XF86AudioLowerVolume exec amixer -q set Master 2dB- unmute
+
+#exec gnome-session --session=gnome-i3
