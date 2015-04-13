@@ -76,7 +76,8 @@ set expandtab
 
 filetype plugin indent on
 syntax on
-colors abra
+colors vexorian
+" 256-jungle
 
 set nobackup       
 set nowritebackup 
