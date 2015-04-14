@@ -161,4 +161,10 @@ exec /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1
 bindsym XF86AudioRaiseVolume exec amixer -q set Master 2dB+ unmute
 bindsym XF86AudioLowerVolume exec amixer -q set Master 2dB- unmute
 
+bindsym $mod+Next focus right
+bindsym $mod+Prior focus left
+
+for_window [window_role="pop-up"] floating enable
+for_window [class="Gcr-prompter" instance="gcr-prompter"] floating enable
+
 #exec gnome-session --session=gnome-i3
