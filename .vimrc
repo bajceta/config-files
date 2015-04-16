@@ -97,3 +97,5 @@ let mapleader=","
 imap jk <Esc>
 map rr :%Eval<CR>
 hi MatchParen cterm=bold ctermbg=none ctermfg=magenta
+
+nnoremap <Leader>f :Ag <cword><CR>
