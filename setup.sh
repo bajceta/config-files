@@ -38,3 +38,4 @@ sudo apt-get install libsqlite3-dev sqlite3
 rvm install 1.9.3
 gem install vmail
 sudo apt-get install vim-gtk
+sudo apt-get install memcached

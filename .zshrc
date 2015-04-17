@@ -50,7 +50,6 @@ plugins=(git wd)
 
 # User configuration
 
-export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
 # export MANPATH="/usr/local/man:$MANPATH"
 
 source $ZSH/oh-my-zsh.sh
@@ -85,10 +84,11 @@ alias gd="git diff --color"
 alias ll="ls -ltr"
 alias gll="git log --oneline --graph --all --decorate --color"
 alias gs="git status -b -s"
+alias ts="trans sv:en "
 
 if [ "$0" = "/usr/sbin/lightdm-session" -a "$DESKTOP_SESSION" = "i3" ]; then
     export $(gnome-keyring-daemon -s)
 fi
 
-
+#export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
