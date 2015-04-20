@@ -39,3 +39,7 @@ rvm install 1.9.3
 gem install vmail
 sudo apt-get install vim-gtk
 sudo apt-get install memcached
+Requirement already satisfied (use --upgrade to upgrade): i3-py in /usr/local/lib/python2.7/dist-packages
+Cleaning up...
+sudo pip install i3-py
+sudo pip install quickswitch-i3

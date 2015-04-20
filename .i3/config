@@ -186,4 +186,6 @@ bindsym $mod+Shift+s [title="Skype"] focus
 bindsym $mod+Shift+w [title="Chrome"] focus
 bindsym $mod+Shift+g [title="gmail"] focus
 bindsym $mod+Ctrl+l exec i3lock
+bindsym $mod+m exec /usr/local/bin/quickswitch.py
+
 
