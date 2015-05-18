@@ -99,3 +99,8 @@ map rr :%Eval<CR>
 hi MatchParen cterm=bold ctermbg=none ctermfg=magenta
 
 nnoremap <Leader>f :Ag <cword><CR>
+
+
+" arduino setup
+au BufRead,BufNewFile *.pde set filetype=arduino
+au BufRead,BufNewFile *.ino set filetype=arduino
