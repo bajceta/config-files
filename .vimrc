@@ -24,6 +24,8 @@ Plugin 'flazz/vim-colorschemes'
 Plugin 'Chiel92/vim-autoformat'
 " needs : npm install -g js-beautify
 Plugin 'marijnh/tern_for_vim'
+"install the tern server by running npm install in the bundle/tern_for_vim
+"cd .vim/bundle/tern_for_vim && npm install 
 Plugin 'scrooloose/nerdcommenter.git'
 
 " Clojure
