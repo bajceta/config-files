@@ -28,3 +28,7 @@ fi
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
+
+setxkbmap -option ctrl:nocaps
+setxkbmap -option grp:alt_shift_toggle us,se
+
