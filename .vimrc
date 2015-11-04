@@ -18,7 +18,7 @@ let g:ctrlp_custom_ignore = {
   \ 'file': '\v\.(exe|so|dll)$',
   \ 'link': 'some_bad_symbolic_links',
   \ }
-set wildignore+=*/tmp/*,*/target/*,*.so,*.swp,*.zip
+set wildignore+=*/node_modules/*,*/tmp/*,*/target/*,*.so,*.swp,*.zip
 Plugin 'rking/ag.vim'
 Plugin 'flazz/vim-colorschemes'
 Plugin 'Chiel92/vim-autoformat'
@@ -78,7 +78,8 @@ set expandtab
 
 filetype plugin indent on
 syntax on
-colors vexorian
+colors zephyr
+"colors vexorian
 " 256-jungle
 
 set nobackup       
