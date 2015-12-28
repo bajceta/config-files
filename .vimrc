@@ -1,8 +1,12 @@
+" setup : 
+" git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+"
+
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
 " set the runtime path to include Vundle and initialize
-"  git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+"  
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 " alternatively, pass a path where Vundle should install plugins
@@ -18,7 +22,7 @@ let g:ctrlp_custom_ignore = {
   \ 'file': '\v\.(exe|so|dll)$',
   \ 'link': 'some_bad_symbolic_links',
   \ }
-set wildignore+=*/node_modules/*,*/tmp/*,*/target/*,*.so,*.swp,*.zip
+set wildignore+=*/tmp/*,*/target/*,*.so,*.swp,*.zip,*/node_modules/*
 Plugin 'rking/ag.vim'
 Plugin 'flazz/vim-colorschemes'
 Plugin 'Chiel92/vim-autoformat'
@@ -78,8 +82,7 @@ set expandtab
 
 filetype plugin indent on
 syntax on
-colors zephyr
-"colors vexorian
+colors vexorian
 " 256-jungle
 
 set nobackup       
@@ -94,15 +97,23 @@ nnoremap <C-H> <C-W><C-H>
 
 " autoformat
 noremap <F3> :Autoformat<CR><CR>
+imap <F3> <c-o>:Autoformat<CR>
 
+" let mapleader="\<SPACE>"
 let mapleader=","
 
+imap <silent> ,/ <c-o>:call NERDComment("n","Toggle")<CR>
 imap jk <Esc>
 map rr :%Eval<CR>
+imap <silent> ,> <c-o>:call PareditMoveRight()<CR>
+imap <silent> ,< <c-o>:call PareditMoveLeft()<CR>
+
 hi MatchParen cterm=bold ctermbg=none ctermfg=magenta
 
 nnoremap <Leader>f :Ag <cword><CR>
 
+nmap <Leader>/ :call NERDComment("n","Toggle")<CR>
+vmap <Leader>/ :call NERDComment("n","Toggle")<CR>
 
 " arduino setup
 au BufRead,BufNewFile *.pde set filetype=arduino
