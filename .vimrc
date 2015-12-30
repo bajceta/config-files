@@ -82,7 +82,9 @@ set expandtab
 
 filetype plugin indent on
 syntax on
-colors vexorian
+colors Monokai
+"colors zephyr
+"colors vexorian
 " 256-jungle
 
 set nobackup       
@@ -104,7 +106,8 @@ let mapleader=","
 
 imap <silent> ,/ <c-o>:call NERDComment("n","Toggle")<CR>
 imap jk <Esc>
-map rr :%Eval<CR>
+map rr :w<CR>:%Eval<CR>
+map rt :w<Esc>:%RunTests<CR>
 imap <silent> ,> <c-o>:call PareditMoveRight()<CR>
 imap <silent> ,< <c-o>:call PareditMoveLeft()<CR>
 
