@@ -38,7 +38,7 @@ Plugin 'kien/rainbow_parentheses.vim'
 Plugin 'tpope/vim-fireplace.git'
 Plugin 'vim-scripts/paredit.vim'
 Plugin 'venantius/vim-cljfmt'
-
+Plugin 'scrooloose/syntastic.git'
 
 
 call vundle#end()
@@ -121,3 +121,19 @@ vmap <Leader>/ :call NERDComment("n","Toggle")<CR>
 " arduino setup
 au BufRead,BufNewFile *.pde set filetype=arduino
 au BufRead,BufNewFile *.ino set filetype=arduino
+
+
+"syntastic
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+let g:syntastic_javascript_checkers = ['eslint']
+"let g:syntastic_javascript_eslint_exec = 
+"
+"
+set number
