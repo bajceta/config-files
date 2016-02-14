@@ -43,3 +43,7 @@ Requirement already satisfied (use --upgrade to upgrade): i3-py in /usr/local/li
 Cleaning up...
 sudo pip install i3-py
 sudo pip install quickswitch-i3
+
+
+#edit commit messages with vim
+git config --global core.editor /usr/bin/vim

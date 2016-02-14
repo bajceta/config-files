@@ -108,6 +108,7 @@ imap <silent> ,/ <c-o>:call NERDComment("n","Toggle")<CR>
 imap jk <Esc>
 map rr :w<CR>:%Eval<CR>
 map rt :w<Esc>:%RunTests<CR>
+
 imap <silent> ,> <c-o>:call PareditMoveRight()<CR>
 imap <silent> ,< <c-o>:call PareditMoveLeft()<CR>
 
@@ -128,6 +129,7 @@ set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 
+let g:syntastic_enable_signs=1
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1

@@ -85,6 +85,7 @@ alias ll="ls -ltr"
 alias gll="git log --oneline --graph --all --decorate --color"
 alias gs="git status -b -s"
 alias ts="trans sv:en "
+alias gpg="gpg2"
 
 if [ "$0" = "/usr/sbin/lightdm-session" -a "$DESKTOP_SESSION" = "i3" ]; then
     export $(gnome-keyring-daemon -s)
