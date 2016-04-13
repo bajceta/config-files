@@ -101,6 +101,11 @@ nnoremap <C-H> <C-W><C-H>
 noremap <F3> :Autoformat<CR><CR>
 imap <F3> <c-o>:Autoformat<CR>
 
+
+"autoformat js 
+let g:formatdef_my_custom_js = '"esformatter -c ~/.esformatter "'
+let g:formatters_javascript = ['my_custom_js']
+
 " let mapleader="\<SPACE>"
 let mapleader=","
 
@@ -137,5 +142,9 @@ let g:syntastic_check_on_wq = 0
 let g:syntastic_javascript_checkers = ['eslint']
 "let g:syntastic_javascript_eslint_exec = 
 "
+"
+"
+"
+" 
 "
 set number
