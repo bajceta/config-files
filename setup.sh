@@ -47,3 +47,4 @@ sudo pip install quickswitch-i3
 
 #edit commit messages with vim
 git config --global core.editor /usr/bin/vim
+npm install -g esformatter esformatter-add-trailing-commas esformatter-jsx esformatter-semicolons
