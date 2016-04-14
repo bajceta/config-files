@@ -258,7 +258,7 @@
       "ArrowFunctionExpressionArrow": 1,
       "ArrowFunctionExpressionOpeningBrace": 1,
       "ArrowFunctionExpressionClosingBrace": 0,
-      "ArgumentComma" : 1,
+      "ArgumentComma" : 0,
       "ArgumentList" : 0,
       "AssignmentOperator" : 1,
       "BinaryExpression": 0,
@@ -448,7 +448,21 @@
   },
   "plugins": [
     "esformatter-add-trailing-commas",
+    "esformatter-jsx",
     "esformatter-semicolons"
-
-  ]
+  ],
+  "jsx": {
+    "formatJSX": true, //Duh! that's the default 
+    "attrsOnSameLineAsTag": false, // move each attribute to its own line 
+    "maxAttrsOnTag": 3, // if lower or equal than 3 attributes, they will be kept on a single line 
+    "firstAttributeOnSameLine": true, // keep the first attribute in the same line as the tag 
+    "formatJSXExpressions": false, // default true, if false jsxExpressions won't be recursively formatted 
+    "JSXExpressionsSingleLine": true, // default true, if false the JSXExpressions might span several lines 
+    "alignWithFirstAttribute": false, // do not align attributes with the first tag 
+    "spaceInJSXExpressionContainers": " ", // default to one space. Make it empty if you don't like spaces between JSXExpressionContainers 
+    "htmlOptions": {
+      // put here the options for js-beautify.html 
+        /*unformatted:"td,inline"*/
+    }
+  }
 }
