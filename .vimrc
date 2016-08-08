@@ -90,6 +90,8 @@ colors Monokai
 set nobackup       
 set nowritebackup 
 set noswapfile   
+set autoread                                                                                                                                                                                    
+
 
 " panel navigation
 nnoremap <C-J> <C-W><C-J>
