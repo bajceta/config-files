@@ -20,6 +20,9 @@ sudo ln -s /usr/bin/node $(which nodejs)
 # git 
 sudo apt-get install -y git
 
+git config --global user.name "me "
+git config --global user.email you@example.com
+
 
 # gawk for translate
 mkdir -p ~/bin
