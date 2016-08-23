@@ -39,7 +39,7 @@ rvm install 1.9.3
 gem install vmail
 sudo apt-get install vim-gtk
 sudo apt-get install memcached
-Requirement already satisfied (use --upgrade to upgrade): i3-py in /usr/local/lib/python2.7/dist-packages
+# Requirement already satisfied (use --upgrade to upgrade): i3-py in /usr/local/lib/python2.7/dist-packages
 Cleaning up...
 sudo pip install i3-py
 sudo pip install quickswitch-i3
@@ -48,3 +48,6 @@ sudo pip install quickswitch-i3
 #edit commit messages with vim
 git config --global core.editor /usr/bin/vim
 npm install -g esformatter esformatter-add-trailing-commas esformatter-jsx esformatter-semicolons
+
+# powerline fonts
+git clone https://github.com/powerline/fonts.git && cd fonts && ./install.sh
