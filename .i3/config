@@ -181,11 +181,12 @@ client.urgent           #2f343a #900000 #ffffff #900000
 #
 
 bindsym $mod+x move workspace to output right
-bindsym $mod+Shift+v [title="vim"] focus
+bindsym $mod+Shift+v [title="VIM"] focus
 bindsym $mod+Shift+s [title="Skype"] focus
 bindsym $mod+Shift+w [title="Chrome"] focus
-bindsym $mod+Shift+g [title="gmail"] focus
+bindsym $mod+Shift+g [title="Inbox"] focus
 bindsym $mod+Ctrl+l exec i3lock
 bindsym $mod+m exec /usr/local/bin/quickswitch.py
+bindsym Print exec xfce4-screenshooter
 
 
