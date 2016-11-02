@@ -114,7 +114,7 @@ let g:formatters_javascript = ['my_custom_js']
 imap <silent> ,/ <c-o>:call NERDComment("n","Toggle")<CR>
 imap jk <Esc>
 map rr :w<CR>:%Eval<CR>
-map rt :w<Esc>:%RunTests<CR>
+map rt :w<Esc>:<C-U>%RunTests<CR>
 
 imap <silent> ,> <c-o>:call PareditMoveRight()<CR>
 imap <silent> ,< <c-o>:call PareditMoveLeft()<CR>
