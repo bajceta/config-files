@@ -1,3 +1,5 @@
+sudo apt install vim python-pip i3
+
 # gnome theme
 gsettings set org.gnome.desktop.interface gtk-theme "CoolestThemeOnEarth"
 
