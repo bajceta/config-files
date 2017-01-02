@@ -32,6 +32,10 @@ Plugin 'marijnh/tern_for_vim'
 "cd .vim/bundle/tern_for_vim && npm install 
 Plugin 'scrooloose/nerdcommenter.git'
 
+" tags
+
+Plugin 'majutsushi/tagbar.git'
+
 " Clojure
 Plugin 'guns/vim-clojure-static'
 Plugin 'kien/rainbow_parentheses.vim'
@@ -40,6 +44,7 @@ Plugin 'vim-scripts/paredit.vim'
 Plugin 'venantius/vim-cljfmt'
 Plugin 'scrooloose/syntastic.git'
 
+Plugin 'suan/vim-instant-markdown'
 
 call vundle#end()
 
@@ -92,7 +97,6 @@ set nowritebackup
 set noswapfile   
 set autoread                                                                                                                                                                                    
 
-
 " panel navigation
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
@@ -110,6 +114,10 @@ noremap <Leader>m :Autoformat<CR>:w<CR>
 let g:formatdef_my_custom_js = '"esformatter -c ~/.esformatter "'
 let g:formatters_javascript = ['my_custom_js']
 
+
+" tags
+nnoremap <Leader>. :CtrlPTag<cr>
+nnoremap <silent> <Leader>b :TagbarToggle<CR>
 
 imap <silent> ,/ <c-o>:call NERDComment("n","Toggle")<CR>
 imap jk <Esc>

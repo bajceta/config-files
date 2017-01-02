@@ -25,10 +25,8 @@ if [ "$0" = "/usr/sbin/lightdm-session" -a "$DESKTOP_SESSION" = "i3" ]; then
         export $(gnome-keyring-daemon -s)
 fi
 
-export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+export PATH="$PATH:$HOME/.rvm/bin:$HOME/bin:/home/vlada/Downloads/android-sdk-linux/tools:/home/vlada/Downloads/android-sdk-linux/platform-tools" # Add RVM to PATH for scripting
 
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 
-setxkbmap -option ctrl:nocaps
-setxkbmap -option grp:alt_shift_toggle us,se
 

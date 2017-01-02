@@ -130,3 +130,14 @@ alias login_synargus_version1='ssh -i ~/.ssh/aws-norma-synargus.pem ubuntu@ec2-1
 
 export DOCKER_HOST=tcp://localhost:2375
 
+
+# handle ssh key only once 
+if [ ! -S ~/.ssh/ssh_auth_sock ]; then
+  eval `ssh-agent`
+    ln -sf "$SSH_AUTH_SOCK" ~/.ssh/ssh_auth_sock
+fi
+export SSH_AUTH_SOCK=~/.ssh/ssh_auth_sock
+ssh-add -l | grep "The agent has no identities" && ssh-add
+
+export VISUAL=vim
+export EDITOR="$VISUAL"

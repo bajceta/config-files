@@ -149,13 +149,22 @@ bindsym $mod+r mode "resize"
 # finds out, if available)
 bar {
         status_command i3status
+        mode hide
+        modifier Mod1        
 }
-exec --no-startup-id nm-applet
+# exec --no-startup-id nm-applet
+setxkbmap -option grp:alt_shift_toggle -option ctrl:nocaps -layout us,se,rs -variant ",,latin"
+#
+exec --no-startup-id wicd-client --tray 
 exec --no-startup-id unity-settings-daemon
 # exec --no-startup-id gnome-sound-applet
 # exec /usr/lib/x86_64-linux-gnu/indicator-sound/indicator-sound-service
-exec gnome-keyring-daemon
-exec /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1 
+exec --no-startup-id gnome-keyring-daemon
+exec --no-startup-id /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1 
+exec --no-startup-id setxkbmap -option grp:alt_shift_toggle -option ctrl:nocaps -layout us,se,rs -variant ",,latin"
+# exec xmodmap -e 'remove Mod1 = Alt_R'
+# exec xmodmap -e 'add Mod3 = Alt_R'
+
 
 bindsym XF86AudioRaiseVolume exec amixer -q set Master 2dB+ unmute
 bindsym XF86AudioLowerVolume exec amixer -q set Master 2dB- unmute
@@ -163,8 +172,8 @@ bindsym XF86AudioMute exec amixer -D pulse set Master 1+ toggle
 bindsym XF86AudioMicMute exec amixer set Capture toggle
 
 # next/previous workspace
-bindsym Mod1+Tab focus right
-bindsym Mod1+Shift+Tab focus left
+# bindsym Mod1+Tab focus right
+# bindsym Mod1+Shift+Tab focus left
 bindsym $mod+Tab workspace back_and_forth
 bindsym $mod+Next focus right
 bindsym $mod+Prior focus left
@@ -183,7 +192,7 @@ client.urgent           #2f343a #900000 #ffffff #900000
 #
 
 bindsym $mod+x move workspace to output right
-bindsym $mod+Shift+v [title="VIM"] focus
+bindsym $mod+Shift+v [title="vim"] focus
 bindsym $mod+Shift+s [title="Skype"] focus
 bindsym $mod+Shift+w [title="Chrome"] focus
 bindsym $mod+Shift+g [title="Inbox"] focus
@@ -192,3 +201,21 @@ bindsym $mod+m exec /usr/local/bin/quickswitch.py
 bindsym Print exec xfce4-screenshooter
 
 
+# marks
+
+bindsym $mod+Shift+y mark m1
+bindsym $mod+Shift+u mark m2
+bindsym $mod+Shift+i mark m3
+bindsym $mod+Shift+o mark m4
+bindsym $mod+Shift+p mark m5
+
+
+bindsym $mod+y [con_mark="m1"] focus
+bindsym $mod+u [con_mark="m2"] focus
+bindsym $mod+i [con_mark="m3"] focus
+bindsym $mod+o [con_mark="m4"] focus
+bindsym $mod+p [con_mark="m5"] focus
+
+
+
+ 
