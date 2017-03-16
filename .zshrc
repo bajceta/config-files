@@ -5,8 +5,8 @@ export ZSH=~/.oh-my-zsh
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-#ZSH_THEME="robbyrussell"
-ZSH_THEME="agnoster"
+ZSH_THEME="robbyrussell"
+# ZSH_THEME="agnoster"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -46,7 +46,7 @@ ZSH_THEME="agnoster"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git wd npm)
+plugins=(git wd npm vi-mode)
 
 # User configuration
 
@@ -141,3 +141,4 @@ ssh-add -l | grep "The agent has no identities" && ssh-add
 
 export VISUAL=vim
 export EDITOR="$VISUAL"
+export PATH="$HOME/bin:/usr/lib/postgresql/9.5/bin/:$PATH"

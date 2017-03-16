@@ -121,11 +121,14 @@ nnoremap <silent> <Leader>b :TagbarToggle<CR>
 
 imap <silent> ,/ <c-o>:call NERDComment("n","Toggle")<CR>
 imap jk <Esc>
+
 map rr :w<CR>:%Eval<CR>
 map rt :w<Esc>:<C-U>%RunTests<CR>
 
 imap <silent> ,> <c-o>:call PareditMoveRight()<CR>
 imap <silent> ,< <c-o>:call PareditMoveLeft()<CR>
+
+nnoremap mm :q<cr>
 
 hi MatchParen cterm=bold ctermbg=none ctermfg=magenta
 
@@ -169,3 +172,8 @@ endif
 " 
 "
 set number
+set incsearch
+set hlsearch
+set showcmd
+set cursorline
+set backspace=indent,eol,start

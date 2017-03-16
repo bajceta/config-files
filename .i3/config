@@ -31,17 +31,18 @@ bindsym $mod+Return exec /usr/bin/xfce4-terminal
 bindsym $mod+Shift+q kill
 
 # start dmenu (a program launcher)
-bindsym $mod+d exec dmenu_run
+bindsym $mod+d exec dmenu_run -m 1 -b -i -l 30
+# bindsym $mod+d exec i3-dmenu-desktop --dmenu='dmenu -m 1 -b'
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
 # bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
 
 # change focus
-bindsym $mod+j focus left
-bindsym $mod+k focus down
-bindsym $mod+l focus up
-bindsym $mod+semicolon focus right
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Left focus left
@@ -50,10 +51,10 @@ bindsym $mod+Up focus up
 bindsym $mod+Right focus right
 
 # move focused window
-bindsym $mod+Shift+j move left
-bindsym $mod+Shift+k move down
-bindsym $mod+Shift+l move up
-bindsym $mod+Shift+semicolon move right
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Shift+Left move left
@@ -62,7 +63,7 @@ bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
 # split in horizontal orientation
-bindsym $mod+h split h
+bindsym $mod+Shift+v split h
 
 # split in vertical orientation
 bindsym $mod+v split v
@@ -150,7 +151,7 @@ bindsym $mod+r mode "resize"
 bar {
         status_command i3status
         mode hide
-        modifier Mod1        
+        modifier $mod
 }
 # exec --no-startup-id nm-applet
 setxkbmap -option grp:alt_shift_toggle -option ctrl:nocaps -layout us,se,rs -variant ",,latin"
@@ -165,12 +166,23 @@ exec --no-startup-id setxkbmap -option grp:alt_shift_toggle -option ctrl:nocaps 
 # exec xmodmap -e 'remove Mod1 = Alt_R'
 # exec xmodmap -e 'add Mod3 = Alt_R'
 
+# exec --no-startup-id echo "$0: DESKTOP_AUTOSTART_ID $DESKTOP_AUTOSTART_ID, registering with org.gnome.SessionManager"
+
+# exec --no-startup-id dbus-send --session --print-reply=literal --dest=org.gnome.SessionManager "/org/gnome/SessionManager" org.gnome.SessionManager.RegisterClient "string:i3" "string:$DESKTOP_AUTOSTART_ID"
 
 bindsym XF86AudioRaiseVolume exec amixer -q set Master 2dB+ unmute
 bindsym XF86AudioLowerVolume exec amixer -q set Master 2dB- unmute
 bindsym XF86AudioMute exec amixer -D pulse set Master 1+ toggle
 bindsym XF86AudioMicMute exec amixer set Capture toggle
+bindsym XF86PowerOff exec systemctl suspend
+bindsym $mod+$mod2+s exec systemctl suspend
 
+
+bindsym $mod+Shift+m exec amixer -q set Master 2dB+ unmute
+bindsym $mod+Shift+n exec amixer -q set Master 2dB- unmute
+
+bindsym $mod+Shift+b exec amixer -D pulse set Master 1+ toggle
+# bindsym $mod+Shift+k mode "media"
 # next/previous workspace
 # bindsym Mod1+Tab focus right
 # bindsym Mod1+Shift+Tab focus left
@@ -192,30 +204,124 @@ client.urgent           #2f343a #900000 #ffffff #900000
 #
 
 bindsym $mod+x move workspace to output right
-bindsym $mod+Shift+v [title="vim"] focus
+# bindsym $mod+Shift+v [title="vim"] focus
 bindsym $mod+Shift+s [title="Skype"] focus
 bindsym $mod+Shift+w [title="Chrome"] focus
 bindsym $mod+Shift+g [title="Inbox"] focus
 bindsym $mod+Ctrl+l exec i3lock
-bindsym $mod+m exec /usr/local/bin/quickswitch.py
+bindsym $mod+m exec /usr/local/bin/quickswitch.py --dmenu 'dmenu -b -i -l 20 -m 1'
 bindsym Print exec xfce4-screenshooter
 
 
 # marks
 
-bindsym $mod+Shift+y mark m1
-bindsym $mod+Shift+u mark m2
-bindsym $mod+Shift+i mark m3
-bindsym $mod+Shift+o mark m4
-bindsym $mod+Shift+p mark m5
+bindsym $mod+Shift+t mark t
+bindsym $mod+Shift+y mark y
+bindsym $mod+Shift+u mark u
+bindsym $mod+Shift+i mark i
+bindsym $mod+Shift+o mark o
+bindsym $mod+Shift+p mark p
 
 
-bindsym $mod+y [con_mark="m1"] focus
-bindsym $mod+u [con_mark="m2"] focus
-bindsym $mod+i [con_mark="m3"] focus
-bindsym $mod+o [con_mark="m4"] focus
-bindsym $mod+p [con_mark="m5"] focus
+bindsym $mod+t [con_mark="t"] focus
+bindsym $mod+y [con_mark="y"] focus
+bindsym $mod+u [con_mark="u"] focus
+bindsym $mod+i [con_mark="i"] focus
+bindsym $mod+o [con_mark="o"] focus
+bindsym $mod+p [con_mark="p"] focus
 
 
 
- 
+#mouse 
+
+set $mod Mod4
+set $mod2 Mod1
+
+mode "mouse" {
+
+    # set your three speeds here
+
+    set $slow 1
+    set $quick 10
+    set $fast 50
+
+    # Mouse movement (slow/fine-tuned) -- vim keybindings
+
+    bindsym h exec xdotool mousemove_relative -- -$slow 0
+    bindsym j exec xdotool mousemove_relative 0 $slow
+    bindsym k exec xdotool mousemove_relative -- 0 -$slow
+    bindsym l exec xdotool mousemove_relative $slow 0
+
+    # Mouse movement (slow/fine-tuned) -- arrow keys
+
+    bindsym Left exec xdotool mousemove_relative -- -$slow 0
+    bindsym Down exec xdotool mousemove_relative 0 $slow
+    bindsym Up exec xdotool mousemove_relative -- 0 -$slow
+    bindsym Right exec xdotool mousemove_relative $slow 0
+
+    # Mouse movement (quicker) -- vim keybindings
+
+    bindsym Shift+h exec xdotool mousemove_relative -- -$quick 0
+    bindsym Shift+j exec xdotool mousemove_relative 0 $quick
+    bindsym Shift+k exec xdotool mousemove_relative -- 0 -$quick
+    bindsym Shift+l exec xdotool mousemove_relative $quick 0
+
+    # Mouse movement (quicker) -- arrow keys
+
+    bindsym Shift+Left exec xdotool mousemove_relative -- -$quick 0
+    bindsym Shift+Down exec xdotool mousemove_relative 0 $quick
+    bindsym Shift+Up exec xdotool mousemove_relative -- 0 -$quick
+    bindsym Shift+Right exec xdotool mousemove_relative $quick 0
+
+    # Mouse movement (fast) -- vim keybindings
+
+    bindsym Control+h exec xdotool mousemove_relative -- -$fast 0
+    bindsym Control+j exec xdotool mousemove_relative 0 $fast
+    bindsym Control+k exec xdotool mousemove_relative -- 0 -$fast
+    bindsym Control+l exec xdotool mousemove_relative $fast 0
+
+    # Mouse movement (fast) -- arrow keys
+
+    bindsym Shift+$mod2+Left exec xdotool mousemove_relative -- -$fast 0
+    bindsym Shift+$mod2+Down exec xdotool mousemove_relative 0 $fast
+    bindsym Shift+$mod2+Up exec xdotool mousemove_relative -- 0 -$fast
+    bindsym Shift+$mod2+Right exec xdotool mousemove_relative $fast 0
+
+    # Left Click
+    bindsym u exec xdotool click 1
+
+    # Middle Click
+    bindsym i exec xdotool click 2
+
+    # Right Click
+    bindsym o exec xdotool click 3
+
+    # Left Click-and-drag
+    bindsym Shift+u exec xdotool mousedown 1
+
+    # Middle Click-and-drag 
+    bindsym Shift+i exec xdotool mousedown 2
+
+    # Right Click-and-drag
+    bindsym Shift+o exec xdotool mousedown 3
+
+    # Left Drag release
+    bindsym Control+u exec xdotool mouseup 1
+
+    # Middle Drag release
+    bindsym Control+d exec xdotool mouseup 2
+
+    # Right Drag release
+    bindsym Control+s exec xdotool mouseup 3
+
+
+    # return to normal keybindings -- IMPORTANT!!
+
+    bindsym Escape mode "default"
+}
+
+bindsym $mod+n mode "mouse"
+
+
+#for_window [class="Google-chrome" title="Google Chrome"] border none
+
