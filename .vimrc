@@ -4,6 +4,22 @@
 
 set nocompatible              " be iMproved, required
 filetype off                  " required
+nnoremap / /\v
+vnoremap / /\v
+set ignorecase
+set smartcase
+set gdefault
+set incsearch
+set showmatch
+set hlsearch
+nnoremap <leader><space> :noh<cr>
+nnoremap <tab> %
+vnoremap <tab> %
+inoremap <F1> <ESC>
+nnoremap <F1> <ESC>
+vnoremap <F1> <ESC>
+nnoremap ; :
+
 
 " set the runtime path to include Vundle and initialize
 "  
@@ -15,14 +31,16 @@ call vundle#begin()
 " let Vundle manage Vundle, required
 Plugin 'gmarik/Vundle.vim'
 " CtrlP
-Plugin 'kien/ctrlp.vim'
+Plugin 'wincent/command-t'
+" Plugin 'kien/ctrlp.vim'
 Plugin 'scrooloose/nerdtree.git'
 let g:ctrlp_custom_ignore = {
             \ 'dir':  '\v[\/]\.(git|hg|svn)$',
             \ 'file': '\v\.(exe|so|dll)$',
             \ 'link': 'some_bad_symbolic_links',
             \ }
-set wildignore+=*/tmp/*,*/target/*,*.so,*.swp,*.zip,*/node_modules/*
+let g:ctrlp_max_files=0 
+set wildignore+=*/tmp/*,*/target/*,*.so,*.swp,*.zip,*/node_modules/*,*.class,*.JPG,*.gif
 Plugin 'rking/ag.vim'
 Plugin 'flazz/vim-colorschemes'
 Plugin 'Chiel92/vim-autoformat'
@@ -79,9 +97,9 @@ let g:rbpt_colorpairs = [
 
 
 " tabs as spaces
-set tabstop=4
-set shiftwidth=4
-set softtabstop=4
+set tabstop=2
+set shiftwidth=2
+set softtabstop=2
 set smarttab
 set expandtab
 
@@ -120,15 +138,21 @@ nnoremap <Leader>. :CtrlPTag<cr>
 nnoremap <silent> <Leader>b :TagbarToggle<CR>
 
 imap <silent> ,/ <c-o>:call NERDComment("n","Toggle")<CR>
-imap jk <Esc>
+imap jj <Esc>
 
 map rr :w<CR>:%Eval<CR>
 map rt :w<Esc>:<C-U>%RunTests<CR>
 
+nnoremap <Leader>m :w<cr>
+" remove whitespaces
+nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
+
 imap <silent> ,> <c-o>:call PareditMoveRight()<CR>
 imap <silent> ,< <c-o>:call PareditMoveLeft()<CR>
 
-nnoremap mm :q<cr>
+" nnoremap mm :q<cr>
+nnoremap mm gt
+nnoremap nn gT
 
 hi MatchParen cterm=bold ctermbg=none ctermfg=magenta
 

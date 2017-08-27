@@ -31,6 +31,10 @@ values."
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(
+     markdown
+     yaml
+     javascript
+     html
      csv
      clojure
      ;; ----------------------------------------------------------------
@@ -56,7 +60,10 @@ values."
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
-   dotspacemacs-additional-packages '()
+   dotspacemacs-additional-packages 
+   '(
+     editorconfig 
+   )
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
    ;; A list of packages that will not be installed and loaded.
@@ -303,6 +310,9 @@ explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
   (define-key evil-normal-state-map (kbd "C-j") 'next-buffer)
   (define-key evil-normal-state-map (kbd "C-k") 'previous-buffer)
+  (define-key evil-normal-state-map (kbd "C-h") 'windmove-left)
+  (define-key evil-normal-state-map (kbd "C-l") 'windmove-right)
+  (setq org-time-clocksum-format (quote (:hours "%d" :require-hours t :minutes ":%02d" :require-minutes t)))
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
