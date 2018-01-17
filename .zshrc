@@ -80,7 +80,7 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 alias tm="tmuxomatic"
-alias gd="git diff --color"
+alias gd="git diff --color --histogram --word-diff"
 alias ll="ls -ltr"
 alias gll="git log --oneline --graph --all --decorate --color"
 alias gs="git status -b -s"
@@ -141,4 +141,29 @@ ssh-add -l | grep "The agent has no identities" && ssh-add
 
 export VISUAL=vim
 export EDITOR="$VISUAL"
-export PATH="$HOME/bin:/usr/lib/postgresql/9.5/bin/:$PATH"
+export PATH="$HOME/bin:/usr/lib/postgresql/9.5/bin/:/usr/local/go/bin:$PATH"
+# export PATH=$PATH:/usr/local/go/bin
+
+export ANDROID_HOME=/opt/android
+
+
+# tabtab source for serverless package
+# uninstall by removing these lines or running `tabtab uninstall serverless`
+[[ -f /home/vlada/.config/yarn/global/node_modules/tabtab/.completions/serverless.zsh ]] && . /home/vlada/.config/yarn/global/node_modules/tabtab/.completions/serverless.zsh
+# tabtab source for sls package
+# uninstall by removing these lines or running `tabtab uninstall sls`
+[[ -f /home/vlada/.config/yarn/global/node_modules/tabtab/.completions/sls.zsh ]] && . /home/vlada/.config/yarn/global/node_modules/tabtab/.completions/sls.zsh
+
+function preexec() {
+  timer=$(($(date +%s%N)/1000000))
+}
+
+function precmd() {
+  if [ $timer ]; then
+    now=$(($(date +%s%N)/1000000))
+    elapsed=$(($now-$timer))
+
+    export RPROMPT="%F{cyan}${elapsed}ms %{$reset_color%}"
+    unset timer
+  fi
+}
