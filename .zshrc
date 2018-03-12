@@ -145,6 +145,7 @@ export PATH="$HOME/bin:/usr/lib/postgresql/9.5/bin/:/usr/local/go/bin:$PATH"
 # export PATH=$PATH:/usr/local/go/bin
 
 export ANDROID_HOME=/opt/android
+PROMPT='%{$fg_bold[white]%}%M %{$fg_bold[red]%}➜ %{$fg_bold[green]%}%p %{$fg[cyan]%}%c %{$fg_bold[blue]%}$(git_prompt_info)%{$fg_bold[blue]%} % %{$reset_color%}'
 
 
 # tabtab source for serverless package
@@ -154,16 +155,3 @@ export ANDROID_HOME=/opt/android
 # uninstall by removing these lines or running `tabtab uninstall sls`
 [[ -f /home/vlada/.config/yarn/global/node_modules/tabtab/.completions/sls.zsh ]] && . /home/vlada/.config/yarn/global/node_modules/tabtab/.completions/sls.zsh
 
-function preexec() {
-  timer=$(($(date +%s%N)/1000000))
-}
-
-function precmd() {
-  if [ $timer ]; then
-    now=$(($(date +%s%N)/1000000))
-    elapsed=$(($now-$timer))
-
-    export RPROMPT="%F{cyan}${elapsed}ms %{$reset_color%}"
-    unset timer
-  fi
-}

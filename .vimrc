@@ -31,8 +31,8 @@ call vundle#begin()
 " let Vundle manage Vundle, required
 Plugin 'gmarik/Vundle.vim'
 " CtrlP
-Plugin 'wincent/command-t'
-" Plugin 'kien/ctrlp.vim'
+" Plugin 'wincent/command-t'
+Plugin 'kien/ctrlp.vim'
 Plugin 'scrooloose/nerdtree.git'
 let g:ctrlp_custom_ignore = {
             \ 'dir':  '\v[\/]\.(git|hg|svn)$',
@@ -44,9 +44,11 @@ set wildignore+=*/tmp/*,*/target/*,*.so,*.swp,*.zip,*/node_modules/*,*.class,*.J
 Plugin 'rking/ag.vim'
 Plugin 'flazz/vim-colorschemes'
 Plugin 'Chiel92/vim-autoformat'
+" setup
 " needs : npm install -g js-beautify
 Plugin 'marijnh/tern_for_vim'
 "install the tern server by running npm install in the bundle/tern_for_vim
+" setup
 "cd .vim/bundle/tern_for_vim && npm install 
 Plugin 'scrooloose/nerdcommenter.git'
 
