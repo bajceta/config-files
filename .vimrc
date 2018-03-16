@@ -57,6 +57,7 @@ Plugin 'scrooloose/nerdcommenter.git'
 Plugin 'majutsushi/tagbar.git'
 
 " Clojure
+Plugin 'bhurlow/vim-parinfer'
 Plugin 'guns/vim-clojure-static'
 Plugin 'kien/rainbow_parentheses.vim'
 Plugin 'tpope/vim-fireplace.git'
@@ -147,14 +148,14 @@ map rt :w<Esc>:<C-U>%RunTests<CR>
 
 nnoremap <Leader>m :w<cr>
 " remove whitespaces
-nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
+nnoremap <leader>w :%s/\s\+$//<cr>:let @/=''<CR>:w<CR>
 
 imap <silent> ,> <c-o>:call PareditMoveRight()<CR>
 imap <silent> ,< <c-o>:call PareditMoveLeft()<CR>
 
 " nnoremap mm :q<cr>
-nnoremap mm gt
-nnoremap nn gT
+" nnoremap mm gt
+" nnoremap nn gT
 
 hi MatchParen cterm=bold ctermbg=none ctermfg=magenta
 

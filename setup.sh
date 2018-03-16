@@ -24,7 +24,7 @@ sudo apt-get install -y git
 
 git config --global user.name "me "
 git config --global user.email you@example.com
-
+git config --global core.excludesfile ~/.gitignore_global
 
 # gawk for translate
 mkdir -p ~/bin

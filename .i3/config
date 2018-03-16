@@ -87,6 +87,8 @@ bindsym $mod+a focus parent
 
 # focus the child container
 #bindsym $mod+d focus child
+# bindsym $mod+Shift+w workspace prev
+# bindsym $mod+Shift+r workspace next
 
 # switch to workspace
 bindsym $mod+1 workspace 1
@@ -100,9 +102,20 @@ bindsym $mod+8 workspace 8
 bindsym $mod+9 workspace 9
 bindsym $mod+0 workspace 10
 
+# bindsym $mod+Shift+q workspace 1
+# bindsym $mod+Shift+w workspace 2
+# bindsym $mod+Shift+e workspace 3
+# bindsym $mod+Shift+r workspace 4
+# bindsym $mod+Shift+t workspace 5
+# bindsym $mod+Shift+y workspace 6
+# bindsym $mod+Shift+u workspace 7
+# bindsym $mod+Shift+i workspace 8
+# bindsym $mod+Shift+o workspace 9
+# bindsym $mod+Shift+p workspace 10
+
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace 1
-bindsym $mod+Shift+2 move container to workspace 2
+Bindsym $mod+Shift+2 move container to workspace 2
 bindsym $mod+Shift+3 move container to workspace 3
 bindsym $mod+Shift+4 move container to workspace 4
 bindsym $mod+Shift+5 move container to workspace 5
@@ -145,6 +158,24 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
+mode "move" {
+        bindsym q move container to workspace 1
+        bindsym w move container to workspace 2
+        bindsym e move container to workspace 3
+        bindsym r move container to workspace 4
+        bindsym t move container to workspace 5
+        bindsym h move left
+        bindsym j move down
+        bindsym k move up
+        bindsym l move right
+
+        # back to normal: Enter or Escape
+        bindsym g mode "default"
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+
+bindsym $mod+g mode "move"
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
@@ -155,7 +186,7 @@ bar {
 }
 # exec --no-startup-id nm-applet
 setxkbmap -option grp:alt_shift_toggle -option ctrl:nocaps -layout us,se,rs -variant ",,latin"
-#
+
 exec --no-startup-id wicd-client --tray 
 exec --no-startup-id unity-settings-daemon
 # exec --no-startup-id gnome-sound-applet
@@ -320,7 +351,7 @@ mode "mouse" {
     bindsym Escape mode "default"
 }
 
-bindsym $mod+n mode "mouse"
+# bindsym $mod+n mode "mouse"
 
 
 #for_window [class="Google-chrome" title="Google Chrome"] border none
