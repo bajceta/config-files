@@ -154,8 +154,8 @@ ZSH_THEME_GIT_PROMPT_CLEAN='OK'
 PD="%{$fg[blue]%}|"
 ZSH_THEME_GIT_PROMPT_PREFIX="$PD%{$fg[red]%}"
 #ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%} "
-ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg[blue]%} %{$fg[yellow]%}NOK"
-ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg[blue]%}"
+ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg_bold[yellow]%}*"
+ZSH_THEME_GIT_PROMPT_CLEAN=""
 #http://zsh.sourceforge.net/Doc/Release/Prompt-Expansion.html
 PROMPT='%{$fg_bold[white]%}%M$PD%{$fg_bold[white]%}%*$PD%{$fg[cyan]%}%22d%{$fg_bold[blue]%}$(git_prompt_info)%{$fg_bold[blue]%}%{$fg_bold[white]>%{$reset_color%}'
 #PROMPT='%{$fg_bold[white]%}%M %{$fg_bold[red]%}➜ %{$fg_bold[green]%}%p %{$fg[cyan]%}%c; ;'
