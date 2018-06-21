@@ -3,6 +3,16 @@
 (package-initialize)
 
 
+
+; handle windows unsafe directory bug
+(setq server-auth-dir "~/.emacs.d/server/")
+(require 'server)
+(when (and (>= emacs-major-version 23)
+	   (string-equal system-type "cygwin"))
+  (defun server-ensure-safe-dir (dir) "Noop" t)) ; Suppress error "directory
+                                                 ; ~/.emacs.d/server is unsafe"
+(server-start)
+
 (setq evil-want-C-i-jump nil)
 
 (require 'evil)
@@ -30,8 +40,3 @@
           (alltodo "")))))
 
 (define-key global-map "\C-ca" 'org-agenda)
-
-;(add-hook 'org-mode-hook 
-;	  '(lambda () 
-; 		            (evil-define-key 'normal org-mode-map "<tab>" 'org-cycle)
-;			    ))
