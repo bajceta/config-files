@@ -1,5 +1,9 @@
 sudo apt install vim python-pip i3
 
+# to setup caps as ctrl
+sudo apt install gnome-tweak-tool
+
+
 # gnome theme
 gsettings set org.gnome.desktop.interface gtk-theme "CoolestThemeOnEarth"
 
