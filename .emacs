@@ -23,6 +23,7 @@
 (setq org-agenda-files (list "~/docs/yale.org"
                              "~/docs/home.org"
                              "~/docs/innercore.org"
+                             "~/docs/aws-infrastructure.org"
                               )) 
 
 
