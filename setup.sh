@@ -1,3 +1,4 @@
+old() {
 sudo apt install vim python-pip i3
 
 # to setup caps as ctrl
@@ -60,3 +61,33 @@ npm install -g esformatter esformatter-add-trailing-commas esformatter-jsx esfor
 
 # powerline fonts
 git clone https://github.com/powerline/fonts.git && cd fonts && ./install.sh
+
+
+# youtube-viewer
+sudo apt install git libncurses5-dev libtinfo-dev libreadline-dev pkg-config libgtk2.0-dev libcanberra-gtk-module
+
+git clone https://github.com/trizen/youtube-viewer
+cd youtube-viewer
+sudo cpan install CPAN ExtUtils::PkgConfig Module::Build inc::latest PAR::Dist Term::ReadLine::Gnu::XS Unicode::GCString LWP::Protocol::https Data::Dump JSON 
+perl Build.PL 
+sudo ./Build installdeps
+sudo ./Build install
+}
+
+st() {
+  git clone https://github.com/lukesmithxyz/st
+  cd st
+  sudo apt-get install libxft-dev libx11-dev
+  make 
+  sudo make install
+}
+
+
+rxvtfontsize() {
+mkdir -p $HOME/.urxvt/ext
+cd $HOME/.urxvt/ext
+wget https://github.com/majutsushi/urxvt-font-size/raw/master/font-size
+
+}
+
+$1
