@@ -18,4 +18,20 @@ xterm*font:    -misc-fixed-medium-r-normal--13-120-75-75-c-80-iso10646-1
 *xterm*color13: #bb88dd
 *xterm*color14: #4eb4fa
 *xterm*color15: #d0d0d0
+URxvt.perl-ext-common: font-size
+! URxvt.font: 9x15
 
+! URxvt.font:xft:Monospace:pixelsize=15
+! URxvt.boldfont:xft:Monospace-Bold:pixelsize=15
+! URxvt.font:     xft:bitstream vera sans mono:size=16:antialias=true
+! URxvt.boldFont: xft:bitstream vera sans mono:bold:size=16:antialias=true
+
+! URxvt*font:     xft:Terminus:medium:size=10
+! xterm*faceName: xft:Terminus:medium:size=10
+
+URxvt*font: -*-terminus-*-*-*-*-*-*-*-*-*-*-*-* 
+! URxvt*font:   xft:Terminus:pixelsize=12
+URxvt*saveLines: 12000
+URxvt*foreground: White
+URxvt*background: Black
+URxvt*scrollBar: false

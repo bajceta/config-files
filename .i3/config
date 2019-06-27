@@ -13,18 +13,23 @@ set $mod Mod4
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below. ISO 10646 = Unicode
-font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
+# font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
 # The font above is very space-efficient, that is, it looks good, sharp and
 # clear in small sizes. However, if you need a lot of unicode glyphs or
 # right-to-left text rendering, you should instead use pango for rendering and
 # chose a FreeType font, such as:
-# font pango:DejaVu Sans Mono 10
+font pango:DejaVu Sans Mono 10
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec /usr/bin/xterm
+# bindsym $mod+Return exec /usr/bin/xterm
+# bindsym $mod+Return exec /usr/bin/xfce4-terminal
+# bindsym $mod+Return exec /usr/local/bin/st
+# xset +fp /usr/share/fonts/X11/misc
+# sudo apt install  xfonts-terminus
+bindsym $mod+Return exec /usr/bin/urxvt -fn '-*-terminus-*-*-*-*-18-*-*-*-*-*-*-*' -fb '-*-terminus-bold-*-*-*-18-*-*-*-*-*-*-*'
 # i3-sensible-terminal
 
 # kill focused window
@@ -134,66 +139,83 @@ bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcu
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
-        # These bindings trigger as soon as you enter the resize mode
+# These bindings trigger as soon as you enter the resize mode
 
-        # Pressing left will shrink the window’s width.
-        # Pressing right will grow the window’s width.
-        # Pressing up will shrink the window’s height.
-        # Pressing down will grow the window’s height.
-        bindsym j resize shrink width 10 px or 10 ppt
-        bindsym k resize grow height 10 px or 10 ppt
-        bindsym l resize shrink height 10 px or 10 ppt
-        bindsym semicolon resize grow width 10 px or 10 ppt
+# Pressing left will shrink the window’s width.
+# Pressing right will grow the window’s width.
+# Pressing up will shrink the window’s height.
+# Pressing down will grow the window’s height.
+  bindsym j resize shrink width 10 px or 10 ppt
+    bindsym k resize grow height 10 px or 10 ppt
+    bindsym l resize shrink height 10 px or 10 ppt
+    bindsym semicolon resize grow width 10 px or 10 ppt
 
-        # same bindings, but for the arrow keys
-        bindsym Left resize shrink width 10 px or 10 ppt
-        bindsym Down resize grow height 10 px or 10 ppt
-        bindsym Up resize shrink height 10 px or 10 ppt
-        bindsym Right resize grow width 10 px or 10 ppt
+# same bindings, but for the arrow keys
+    bindsym Left resize shrink width 10 px or 10 ppt
+    bindsym Down resize grow height 10 px or 10 ppt
+    bindsym Up resize shrink height 10 px or 10 ppt
+    bindsym Right resize grow width 10 px or 10 ppt
 
-        # back to normal: Enter or Escape
-        bindsym Return mode "default"
-        bindsym Escape mode "default"
+# back to normal: Enter or Escape
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
 }
 
 bindsym $mod+r mode "resize"
 
 mode "move" {
-        bindsym q move container to workspace 1
-        bindsym w move container to workspace 2
-        bindsym e move container to workspace 3
-        bindsym r move container to workspace 4
-        bindsym t move container to workspace 5
-        bindsym h move left
-        bindsym j move down
-        bindsym k move up
-        bindsym l move right
+  bindsym q move container to workspace 1
+    bindsym w move container to workspace 2
+    bindsym e move container to workspace 3
+    bindsym r move container to workspace 4
+    bindsym t move container to workspace 5
+    bindsym h move left
+    bindsym j move down
+    bindsym k move up
+    bindsym l move right
 
-        # back to normal: Enter or Escape
-        bindsym g mode "default"
-        bindsym Return mode "default"
-        bindsym Escape mode "default"
+# back to normal: Enter or Escape
+    bindsym g mode "default"
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
 }
 
 bindsym $mod+g mode "move"
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
+# bar {
+# status_command i3status
+# mode hide
+# modifier $mod
+# }
+
 bar {
-        status_command i3status
-        mode hide
-        modifier $mod
+  # font pango:mono 10
+  colors {
+# background $darkblack
+# statusline $darkwhite
+# separator $cyan
+# focused_workspace  $blue $darkblue $darkblack
+# active_workspace   $blue $blue $darkwhite
+# inactive_workspace $darkblack $darkblack $white
+# urgent_workspace   $darkblack $darkblack $white
+  }
+  status_command i3blocks
+    # position top
+    mode hide
+    modifier $mod
 }
 # exec --no-startup-id nm-applet
-setxkbmap -option grp:alt_shift_toggle -option ctrl:nocaps -layout us,se,rs -variant ",,latin"
+exec --no-startup-id setxkbmap -option grp:alt_shift_toggle -option ctrl:nocaps -layout us,se,rs -variant ",,latin"
 
-exec --no-startup-id wicd-client --tray 
+exec --no-startup-id wicd-client --tray
 exec --no-startup-id unity-settings-daemon
 # exec --no-startup-id gnome-sound-applet
 # exec /usr/lib/x86_64-linux-gnu/indicator-sound/indicator-sound-service
 exec --no-startup-id gnome-keyring-daemon
-exec --no-startup-id /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1 
-exec --no-startup-id setxkbmap -option grp:alt_shift_toggle -option ctrl:nocaps -layout us,se,rs -variant ",,latin"
+exec --no-startup-id /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1
+# exec --no-startup-id setxkbmap -option grp:alt_shift_toggle -option ctrl:nocaps -layout us,se,rs -variant ",,latin"
 # exec xmodmap -e 'remove Mod1 = Alt_R'
 # exec xmodmap -e 'add Mod3 = Alt_R'
 
@@ -207,7 +229,8 @@ bindsym XF86AudioMute exec amixer -D pulse set Master 1+ toggle
 bindsym XF86AudioMicMute exec amixer set Capture toggle
 bindsym XF86PowerOff exec systemctl suspend
 bindsym $mod+$mod2+s exec systemctl suspend
-
+bindsym $mod+$mod2+k exec ~/keyboard.sh
+bindsym $mod+$mod2+m exec ~/mon.sh
 
 bindsym $mod+Shift+m exec amixer -q set Master 2dB+ unmute
 bindsym $mod+Shift+n exec amixer -q set Master 2dB- unmute
@@ -234,7 +257,23 @@ client.urgent           #2f343a #900000 #ffffff #900000
 #
 #
 
-bindsym $mod+x move workspace to output right
+
+
+
+mode "move_ws" {
+  bindsym h move workspace to output left
+    bindsym j move workspace to output down
+    bindsym k move workspace to output up
+    bindsym l move workspace to output right
+
+# back to normal: Enter or Escape
+    bindsym g mode "default"
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+bindsym $mod+x mode "move_ws"
+
 # bindsym $mod+Shift+v [title="vim"] focus
 bindsym $mod+Shift+s [title="Skype"] focus
 bindsym $mod+Shift+w [title="Chrome"] focus
@@ -263,90 +302,90 @@ bindsym $mod+p [con_mark="p"] focus
 
 
 
-#mouse 
+#mouse
 
 set $mod Mod4
 set $mod2 Mod1
 
 mode "mouse" {
 
-    # set your three speeds here
+# set your three speeds here
 
-    set $slow 1
+  set $slow 1
     set $quick 10
     set $fast 50
 
-    # Mouse movement (slow/fine-tuned) -- vim keybindings
+# Mouse movement (slow/fine-tuned) -- vim keybindings
 
     bindsym h exec xdotool mousemove_relative -- -$slow 0
     bindsym j exec xdotool mousemove_relative 0 $slow
     bindsym k exec xdotool mousemove_relative -- 0 -$slow
     bindsym l exec xdotool mousemove_relative $slow 0
 
-    # Mouse movement (slow/fine-tuned) -- arrow keys
+# Mouse movement (slow/fine-tuned) -- arrow keys
 
     bindsym Left exec xdotool mousemove_relative -- -$slow 0
     bindsym Down exec xdotool mousemove_relative 0 $slow
     bindsym Up exec xdotool mousemove_relative -- 0 -$slow
     bindsym Right exec xdotool mousemove_relative $slow 0
 
-    # Mouse movement (quicker) -- vim keybindings
+# Mouse movement (quicker) -- vim keybindings
 
     bindsym Shift+h exec xdotool mousemove_relative -- -$quick 0
     bindsym Shift+j exec xdotool mousemove_relative 0 $quick
     bindsym Shift+k exec xdotool mousemove_relative -- 0 -$quick
     bindsym Shift+l exec xdotool mousemove_relative $quick 0
 
-    # Mouse movement (quicker) -- arrow keys
+# Mouse movement (quicker) -- arrow keys
 
     bindsym Shift+Left exec xdotool mousemove_relative -- -$quick 0
     bindsym Shift+Down exec xdotool mousemove_relative 0 $quick
     bindsym Shift+Up exec xdotool mousemove_relative -- 0 -$quick
     bindsym Shift+Right exec xdotool mousemove_relative $quick 0
 
-    # Mouse movement (fast) -- vim keybindings
+# Mouse movement (fast) -- vim keybindings
 
     bindsym Control+h exec xdotool mousemove_relative -- -$fast 0
     bindsym Control+j exec xdotool mousemove_relative 0 $fast
     bindsym Control+k exec xdotool mousemove_relative -- 0 -$fast
     bindsym Control+l exec xdotool mousemove_relative $fast 0
 
-    # Mouse movement (fast) -- arrow keys
+# Mouse movement (fast) -- arrow keys
 
     bindsym Shift+$mod2+Left exec xdotool mousemove_relative -- -$fast 0
     bindsym Shift+$mod2+Down exec xdotool mousemove_relative 0 $fast
     bindsym Shift+$mod2+Up exec xdotool mousemove_relative -- 0 -$fast
     bindsym Shift+$mod2+Right exec xdotool mousemove_relative $fast 0
 
-    # Left Click
+# Left Click
     bindsym u exec xdotool click 1
 
-    # Middle Click
+# Middle Click
     bindsym i exec xdotool click 2
 
-    # Right Click
+# Right Click
     bindsym o exec xdotool click 3
 
-    # Left Click-and-drag
+# Left Click-and-drag
     bindsym Shift+u exec xdotool mousedown 1
 
-    # Middle Click-and-drag 
+# Middle Click-and-drag
     bindsym Shift+i exec xdotool mousedown 2
 
-    # Right Click-and-drag
+# Right Click-and-drag
     bindsym Shift+o exec xdotool mousedown 3
 
-    # Left Drag release
+# Left Drag release
     bindsym Control+u exec xdotool mouseup 1
 
-    # Middle Drag release
+# Middle Drag release
     bindsym Control+d exec xdotool mouseup 2
 
-    # Right Drag release
+# Right Drag release
     bindsym Control+s exec xdotool mouseup 3
 
 
-    # return to normal keybindings -- IMPORTANT!!
+# return to normal keybindings -- IMPORTANT!!
 
     bindsym Escape mode "default"
 }
@@ -355,4 +394,6 @@ mode "mouse" {
 
 
 #for_window [class="Google-chrome" title="Google Chrome"] border none
+for_window [class="^.*"] border pixel 1for_window [class="^.*"] border pixel 1
 
+assign [class="^mpv$"] 4

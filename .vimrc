@@ -100,9 +100,9 @@ let g:rbpt_colorpairs = [
 
 
 " tabs as spaces
-set tabstop=2
-set shiftwidth=2
-set softtabstop=2
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
 set smarttab
 set expandtab
 
@@ -204,3 +204,5 @@ set hlsearch
 set showcmd
 set cursorline
 set backspace=indent,eol,start
+let g:ctrlp_root_markers = ['.ctrlp']
+

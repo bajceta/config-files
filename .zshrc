@@ -145,19 +145,19 @@ export PATH="$HOME/bin:/usr/lib/postgresql/9.5/bin/:/usr/local/go/bin:$PATH"
 # export PATH=$PATH:/usr/local/go/bin
 
 export ANDROID_HOME=/opt/android
-ZSH_THEME_GIT_PROMPT_SUFFIX=''
-ZSH_THEME_GIT_PROMPT_DIRTY='NOK'
-ZSH_THEME_GIT_PROMPT_CLEAN='OK'
+# ZSH_THEME_GIT_PROMPT_SUFFIX=''
+# ZSH_THEME_GIT_PROMPT_DIRTY='NOK'
+# ZSH_THEME_GIT_PROMPT_CLEAN='OK'
 #local ret_status="%(?:%{$fg_bold[green]%}➜ :%{$fg_bold[red]%}➜ )"
 #PROMPT='${ret_status} %{$fg[cyan]%}%c%{$reset_color%} $(git_prompt_info)'
 
-PD="%{$fg[blue]%}|"
-ZSH_THEME_GIT_PROMPT_PREFIX="$PD%{$fg[red]%}"
+# PD="%{$fg[blue]%}|"
+# ZSH_THEME_GIT_PROMPT_PREFIX="$PD%{$fg[red]%}"
 #ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%} "
-ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg_bold[yellow]%}*"
-ZSH_THEME_GIT_PROMPT_CLEAN=""
+# ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg_bold[yellow]%}*"
+# ZSH_THEME_GIT_PROMPT_CLEAN=""
 #http://zsh.sourceforge.net/Doc/Release/Prompt-Expansion.html
-PROMPT='%{$fg_bold[white]%}%M$PD%{$fg_bold[white]%}%*$PD%{$fg[cyan]%}%22d%{$fg_bold[blue]%}$(git_prompt_info)%{$fg_bold[blue]%}%{$fg_bold[white]>%{$reset_color%}'
+# PROMPT='%{$fg_bold[white]%}%M$PD%{$fg_bold[white]%}%*$PD%{$fg[cyan]%}%22d%{$fg_bold[blue]%}$(git_prompt_info) %{$fg_bold[blue]%}%{$fg_bold[white]> %{$reset_color%}'
 #PROMPT='%{$fg_bold[white]%}%M %{$fg_bold[red]%}➜ %{$fg_bold[green]%}%p %{$fg[cyan]%}%c; ;'
 
 
@@ -167,4 +167,5 @@ PROMPT='%{$fg_bold[white]%}%M$PD%{$fg_bold[white]%}%*$PD%{$fg[cyan]%}%22d%{$fg_b
 # tabtab source for sls package
 # uninstall by removing these lines or running `tabtab uninstall sls`
 [[ -f /home/vlada/.config/yarn/global/node_modules/tabtab/.completions/sls.zsh ]] && . /home/vlada/.config/yarn/global/node_modules/tabtab/.completions/sls.zsh
+unset DOCKER_HOST
 
