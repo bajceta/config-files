@@ -47,6 +47,7 @@
       (message "got notification")
       (message (nth 2 event))
       (defconst jiralib-token (cons "Cookie" cookie))
+      (delete-file filename)
       )
     )
 
