@@ -48,13 +48,17 @@
              ;; EXAMPLE:
              ;; Interactive file name search.
              (evil-leader/set-key "k" 'projectile-find-file)
+             ;;(evil-leader/set-key "," 'lsp-ui-peek-find-definitions)
+             ;;(evil-leader/set-key "." 'lsp-ui-peek-find-references)
              ;; (evil-leader/set-key "k" 'find-file-in-project)
              ;; Interactive file content search (git).
-             (evil-leader/set-key "f" 'counsel-git-grep)
+             ; (evil-leader/set-key "f" 'counsel-git-grep)
              ;; Interactive current-file search.
-             (evil-leader/set-key "s" 'swiper)
+             ; (evil-leader/set-key "s" 'swiper)
              ;; Interactive open-buffer switch.
-             (evil-leader/set-key "b" 'counsel-switch-buffer))
+             ; (evil-leader/set-key "b" 'counsel-switch-buffer)
+             
+             )
 
 
 (use-package evil
@@ -115,8 +119,6 @@
         ("Code Review" . "PR")))
 
 
-
-
 (defun org-jira-create-subtask (project type summary description)
   "Create a subtask issue for PROJECT, of TYPE, with SUMMARY and DESCRIPTION."
   (interactive (ensure-on-issue (list (read-string "Summary: ")
@@ -165,22 +167,22 @@
 (define-key evil-normal-state-map (kbd "C-x f") 'projectile-find-files)
 
 (custom-set-variables
-  ;; custom-set-variables was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
-  '(org-agenda-files
-     (quote
-       ("~/docs/home.org" "~/docs/yale.org" "~/docs/innercore.org" "~/docs/aws-infrastructure.org")))
-  '(package-selected-packages
-     (quote
-       (org-link-minor-mode org-jira yaml-mode helm projectile which-key evil))))
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(org-agenda-files
+   (quote
+    ("~/docs/home.org" "~/docs/yale.org" "~/docs/innercore.org" "~/docs/aws-infrastructure.org")) t)
+ '(package-selected-packages
+   (quote
+    (lsp-treemacs evil-leader dracula-theme dap-mode lsp-java lsp-ui company-lsp hydra lsp-mode yasnippet org-link-minor-mode org-jira yaml-mode helm projectile which-key evil))))
 (custom-set-faces
-  ;; custom-set-faces was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
-  )
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
 (unless (package-installed-p 'projectile)
   (package-install 'projectile))
 (require 'projectile)
