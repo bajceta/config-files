@@ -34,6 +34,7 @@
 (setq inhibit-startup-screen t)
 (setq sentence-end-double-space nil)
 (setq mouse-yank-at-point t)
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 (use-package dracula-theme
              :demand t
@@ -47,7 +48,16 @@
              (evil-leader/set-leader "<SPC>")
              ;; EXAMPLE:
              ;; Interactive file name search.
-             (evil-leader/set-key "k" 'projectile-find-file)
+             (evil-leader/set-key "pp" 'projectile-find-file)
+             (evil-leader/set-key "ps" 'projectile-switch-project)
+             (evil-leader/set-key "g" 'magit-status)
+             (evil-leader/set-key "pf" 'counsel-ag)
+             (evil-leader/set-key "/" 'comment-line)
+             (evil-leader/set-key "jc" 'org-jira-get-issues-from-custom-jql)
+             (evil-leader/set-key "js" 'org-jira-get-issues)
+             (evil-leader/set-key "js" 'org-jira-get-issues)
+             (evil-leader/set-key "aa" 'org-agenda)
+
              ;;(evil-leader/set-key "," 'lsp-ui-peek-find-definitions)
              ;;(evil-leader/set-key "." 'lsp-ui-peek-find-references)
              ;; (evil-leader/set-key "k" 'find-file-in-project)
@@ -57,7 +67,7 @@
              ; (evil-leader/set-key "s" 'swiper)
              ;; Interactive open-buffer switch.
              ; (evil-leader/set-key "b" 'counsel-switch-buffer)
-             
+
              )
 
 
@@ -79,6 +89,26 @@
              ;; Initialize.
              (which-key-mode))
 
+(use-package counsel
+  :ensure t
+  :config
+  (use-package smex
+    :ensure t)
+  (use-package flx
+    :ensure t)
+  (ivy-mode 1)
+  (setq ivy-use-virtual-buffers t)
+  ;; intentional space before end of string
+  (setq ivy-count-format "(%d/%d) ")
+  (setq ivy-initial-inputs-alist nil)
+  (setq ivy-re-builders-alist
+	'((t . ivy--regex-fuzzy))))
+
+(use-package ivy-hydra
+      :ensure t)
+
+(setq projectile-completion-system 'ivy)
+
 ; handle windows unsafe directory bug
 (setq server-auth-dir "~/.emacs.d/server/")
 (require 'server)
@@ -88,59 +118,11 @@
 ; ~/.emacs.d/server is unsafe"
 (server-start)
 
-
-; (require 'evil)
-; (evil-mode 1)
-
-
-
 (setq org-agenda-files (list "~/docs/yale.org"
                              "~/docs/home.org"
                              "~/docs/innercore.org"
                              "~/docs/aws-infrastructure.org"
                              ))
-
-(setq jiralib-url "https://jira.assaabloy.net")
-
-
-
-(setq org-jira-custom-jqls
-      '(
-        (:jql " project IN (ALARMP) and sprint in(openSprints()) and sprint not in(futureSprints()) "
-              :limit 300
-              :filename "current-sprint")
-        ))
-
-
-(setq org-jira-jira-status-to-org-keyword-alist
-      '(("In Progress" . "STARTED")
-        ("To Do" . "TODO")
-        ("Impeded" . "IMPEDED")
-        ("Code Review" . "PR")))
-
-
-(defun org-jira-create-subtask (project type summary description)
-  "Create a subtask issue for PROJECT, of TYPE, with SUMMARY and DESCRIPTION."
-  (interactive (ensure-on-issue (list (read-string "Summary: ")
-                                      (read-string "Description: "))))
-  (let* ((parent-id (org-jira-parse-issue-id))
-         (project (org-jira--get-proj-key parent-id))
-         (type "Sub-task")
-         (description "")
-         (ticket-struct (org-jira-get-issue-struct project type summary description parent-id)))
-    (org-jira-get-issues (list (jiralib-create-subtask ticket-struct)))))
-
-(defun test-subtask ()
-  (let* ((parent-id (org-jira-parse-issue-id))
-         (summary (read-string "Summary: "))
-
-         (project (org-jira--get-proj-key parent-id))
-         (type "Sub-task")
-         (description "")
-         (ticket-struct (org-jira-get-issue-struct project type summary description parent-id))
-         )
-    (jiralib-create-subtask ticket-struct)
-    ))
 
 
 
@@ -148,23 +130,29 @@
 (define-key evil-normal-state-map (kbd "C-k") 'previous-buffer)
 (define-key evil-normal-state-map (kbd "C-h") 'windmove-left)
 (define-key evil-normal-state-map (kbd "C-l") 'windmove-right)
+
 (setq org-time-clocksum-format (quote (:hours "%d" :require-hours t :minutes ":%02d" :require-minutes t)))
 (setq org-agenda-custom-commands
       '(("c" "Simple agenda view"
          ((tags "PRIORITY=\"A\""
                 ((org-agenda-skip-function '(org-agenda-skip-entry-if 'scheduled 'todo '("DONE" "TODO" "DEFERRED") ))
                  (org-agenda-overriding-header "High-priority unfinished tasks:")))
-          (tags "PRIORITY=\"B\""
-                ((org-agenda-skip-function '(org-agenda-skip-entry-if 'scheduled 'todo '("DONE" "TODO" "DEFERRED") ))
-                 (org-agenda-overriding-header "Normal-priority unfinished tasks:")))
           (agenda "" ((org-agenda-span 15)))
           (alltodo ""))
          )))
 
+
+(add-hook 'org-agenda-mode-hook
+	  (lambda ()
+	    (define-key org-agenda-mode-map "j" 'evil-next-line)
+	    (define-key org-agenda-mode-map "k" 'evil-previous-line)
+	    (local-set-key (kbd "d") 'my/org-agenda-todo-done)))
+
+
 (define-key global-map "\C-ca" 'org-agenda)
+
 (define-key evil-normal-state-map (kbd "C-p") 'helm-mini)
 (define-key evil-normal-state-map (kbd "C-x C-f") 'helm-find-files)
-(define-key evil-normal-state-map (kbd "C-x f") 'projectile-find-files)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -176,30 +164,30 @@
     ("~/docs/home.org" "~/docs/yale.org" "~/docs/innercore.org" "~/docs/aws-infrastructure.org")) t)
  '(package-selected-packages
    (quote
-    (lsp-treemacs evil-leader dracula-theme dap-mode lsp-java lsp-ui company-lsp hydra lsp-mode yasnippet org-link-minor-mode org-jira yaml-mode helm projectile which-key evil))))
+    (key-chord evil-escape ivy magit lsp-treemacs evil-leader dracula-theme dap-mode lsp-java lsp-ui company-lsp hydra lsp-mode yasnippet org-link-minor-mode org-jira yaml-mode helm projectile which-key evil))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
-(unless (package-installed-p 'projectile)
-  (package-install 'projectile))
-(require 'projectile)
 
-(define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
-(define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
-(projectile-mode +1)
-
-(unless (package-installed-p 'yaml-mode)
-  (package-install 'yaml-mode))
-(require 'yaml-mode)
-(add-to-list 'auto-mode-alist '("\\.yml\\'" . yaml-mode))
+(use-package projectile
+  :config
+  (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
+  (projectile-mode +1)
+  )
 
 
-(add-hook 'yaml-mode-hook
-          '(lambda ()
-             (define-key yaml-mode-map "\C-m" 'newline-and-indent)))
+(use-package yaml-mode
+  :config
+  (add-to-list 'auto-mode-alist '("\\.yml\\'" . yaml-mode))
+  (add-hook 'yaml-mode-hook
+            '(lambda ()
+               (define-key yaml-mode-map "\C-m" 'newline-and-indent)))
+  )
+
+
 
 
 (defun load-directory (dir)
@@ -210,3 +198,12 @@
 
 (load-directory "~/.emacs.d/conf.d")
 (load-file "~/.emacs.d/jira-cookie.el")
+
+(add-hook 'c-mode-common-hook 'google-set-c-style)
+(add-hook 'c-mode-common-hook 'google-make-newline-indent)
+
+(use-package key-chord
+  :config
+  (key-chord-mode 1)
+  (key-chord-define evil-insert-state-map  "jk" 'evil-normal-state)
+  )

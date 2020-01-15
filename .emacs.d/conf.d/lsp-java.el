@@ -22,7 +22,7 @@
                               "." 'lsp-ui-peek-find-references
                               "m" 'lsp-ui-sideline-apply-code-actions
                               "o" 'lsp-organize-imports
-                              "f" 'lsp-format-buffer
+                              "f" 'emacs-google-java-format-reformat-buffer
                               "/" 'comment-line
                               )
 

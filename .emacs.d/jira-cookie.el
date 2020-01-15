@@ -34,7 +34,7 @@
       (let ((result ()))
 	(dolist (cookie cookies)
 	  (let* ((cookie-text (concat (alist-get 'key cookie) "=" (alist-get 'value cookie))))
-	;    (print cookie-text)
+					;    (print cookie-text)
 	    (push cookie-text result)
 	    ))
 	(string-join result "; ")    
