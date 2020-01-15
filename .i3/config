@@ -163,6 +163,15 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
+mode "layout" {
+   bindsym h exec setxkbmap -layout us ; mode "default" 
+   bindsym j exec setxkbmap -layout se ; mode "default" 
+   bindsym k exec setxkbmap -layout rs -variant "latin" ; mode "default" 
+}
+
+
+bindsym $mod+n mode "layout"
+
 mode "move" {
   bindsym q move container to workspace 1
     bindsym w move container to workspace 2
