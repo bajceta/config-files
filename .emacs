@@ -37,57 +37,57 @@
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 (use-package dracula-theme
-             :demand t
-             :config
-             (load-theme 'dracula t))
+  :demand t
+  :config
+  (load-theme 'dracula t))
 
 (use-package evil-leader
-             :demand t
-             :config
-             (global-evil-leader-mode)
-             (evil-leader/set-leader "<SPC>")
-             ;; EXAMPLE:
-             ;; Interactive file name search.
-             (evil-leader/set-key "pp" 'projectile-find-file)
-             (evil-leader/set-key "ps" 'projectile-switch-project)
-             (evil-leader/set-key "g" 'magit-status)
-             (evil-leader/set-key "pf" 'counsel-ag)
-             (evil-leader/set-key "/" 'comment-line)
-             (evil-leader/set-key "jc" 'org-jira-get-issues-from-custom-jql)
-             (evil-leader/set-key "js" 'org-jira-get-issues)
-             (evil-leader/set-key "js" 'org-jira-get-issues)
-             (evil-leader/set-key "aa" 'org-agenda)
+  :demand t
+  :config
+  (global-evil-leader-mode)
+  (evil-leader/set-leader "<SPC>")
+  ;; EXAMPLE:
+  ;; Interactive file name search.
+  (evil-leader/set-key "pp" 'projectile-find-file)
+  (evil-leader/set-key "ps" 'projectile-switch-project)
+  (evil-leader/set-key "g" 'magit-status)
+  (evil-leader/set-key "pf" 'counsel-ag)
+  (evil-leader/set-key "/" 'comment-line)
+  (evil-leader/set-key "jc" 'org-jira-get-issues-from-custom-jql)
+  (evil-leader/set-key "js" 'org-jira-get-issues)
+  (evil-leader/set-key "js" 'org-jira-get-issues)
+  (evil-leader/set-key "aa" 'org-agenda)
 
-             ;;(evil-leader/set-key "," 'lsp-ui-peek-find-definitions)
-             ;;(evil-leader/set-key "." 'lsp-ui-peek-find-references)
-             ;; (evil-leader/set-key "k" 'find-file-in-project)
-             ;; Interactive file content search (git).
-             ; (evil-leader/set-key "f" 'counsel-git-grep)
-             ;; Interactive current-file search.
-             ; (evil-leader/set-key "s" 'swiper)
-             ;; Interactive open-buffer switch.
-             ; (evil-leader/set-key "b" 'counsel-switch-buffer)
+  ;;(evil-leader/set-key "," 'lsp-ui-peek-find-definitions)
+  ;;(evil-leader/set-key "." 'lsp-ui-peek-find-references)
+  ;; (evil-leader/set-key "k" 'find-file-in-project)
+  ;; Interactive file content search (git).
+					; (evil-leader/set-key "f" 'counsel-git-grep)
+  ;; Interactive current-file search.
+					; (evil-leader/set-key "s" 'swiper)
+  ;; Interactive open-buffer switch.
+					; (evil-leader/set-key "b" 'counsel-switch-buffer)
 
-             )
+  )
 
 
 (use-package evil
-             :demand t
-             :config
-             ;; Initialize.
+  :demand t
+  :config
+  ;; Initialize.
 
-             (evil-mode 1)
+  (evil-mode 1)
 
-             (define-key evil-motion-state-map (kbd "TAB") nil)
-             ;; For some reasons evils own search isn't default.
-             (setq evil-search-module 'evil-search)
-             (setq evil-ex-search-case 'sensitive))
+  (define-key evil-motion-state-map (kbd "TAB") nil)
+  ;; For some reasons evils own search isn't default.
+  (setq evil-search-module 'evil-search)
+  (setq evil-ex-search-case 'sensitive))
 
 (use-package which-key
-             :demand t
-             :config
-             ;; Initialize.
-             (which-key-mode))
+  :demand t
+  :config
+  ;; Initialize.
+  (which-key-mode))
 
 (use-package counsel
   :ensure t
@@ -105,17 +105,17 @@
 	'((t . ivy--regex-fuzzy))))
 
 (use-package ivy-hydra
-      :ensure t)
+  :ensure t)
 
 (setq projectile-completion-system 'ivy)
 
-; handle windows unsafe directory bug
+					; handle windows unsafe directory bug
 (setq server-auth-dir "~/.emacs.d/server/")
 (require 'server)
 (when (and (>= emacs-major-version 23)
            (string-equal system-type "cygwin"))
   (defun server-ensure-safe-dir (dir) "Noop" t)) ; Suppress error "directory
-; ~/.emacs.d/server is unsafe"
+					; ~/.emacs.d/server is unsafe"
 (server-start)
 
 (setq org-agenda-files (list "~/docs/yale.org"

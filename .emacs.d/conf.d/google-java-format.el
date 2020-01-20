@@ -1,50 +1,44 @@
-;;; emacs-google-java-format.el --- Format java file according to google style
-
-;; Copyright (C) 2018 Philipp Fehre
-
-;; Author: Philipp Fehre <philipp@fehre.co.uk>
-;; Homepage: https://github.com/sideshowcoder/emacs-google-java-format
-
-;; Version: 1.0.0
-;; Keywords: tools
-
-;; Copyright 2018 Philipp Fehre
+;;; google-java-format.el --- Format code with google-java-format -*- lexical-binding: t; -*-
 ;;
-;; Redistribution and use in source and binary forms, with or without
-;; modification, are permitted provided that the following conditions are met:
+;; Copyright 2015 Google, Inc. All Rights Reserved.
 ;;
-;; 1. Redistributions of source code must retain the above copyright notice,
-;; this list of conditions and the following disclaimer.
+;; Package-Requires: ((emacs "24"))
 ;;
-;; 2. Redistributions in binary form must reproduce the above copyright notice,
-;; this list of conditions and the following disclaimer in the documentation
-;; and/or other materials provided with the distribution.
+;; Licensed under the Apache License, Version 2.0 (the "License");
+;; you may not use this file except in compliance with the License.
+;; You may obtain a copy of the License at
 ;;
-;; THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-;; AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-;; IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
-;; ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
-;; LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
-;; CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
-;; SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
-;; INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
-;; CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
-;; ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
-;; POSSIBILITY OF SUCH DAMAGE.
+;;      http://www.apache.org/licenses/LICENSE-2.0
+;;
+;; Unless required `by applicable law or agreed to in writing, software
+;; distributed under the License is distributed on an "AS-IS" BASIS,
+;; WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+;; See the License for the specific language governing permissions and
+;; limitations under the License.
+
+;; Keywords: tools, Java
 
 ;;; Commentary:
 
-;; Format Java code according to google style, using the google formatter
-;; See https://github.com/google/google-java-format/releases
+;; This package allows a user to filter code through
+;; google-java-format, fixing its formatting.
+
+;; To use it, ensure the directory of this file is in your `load-path'
+;; and add
 ;;
-;; This works best with the formatting rules set up via
-;; `(add-hook 'java-mode-hook 'emacs-google-java-format-indention-settings)'
+;;   (require 'google-java-format)
 ;;
+;; to your .emacs configuration.
+
+;; You may also want to bind `google-java-format-region' to a key:
+;;
+;;   (global-set-key [C-M-tab] #'google-java-format-region)
 
 ;;; Code:
 
-(require 'url)
-(require 'cc-vars)
+(defgroup google-java-format nil
+  "Format code using google-java-format."
+  :group 'tools)
 
 (defvar emacs-google-java-format-jar-name
   "google-java-format-1.7-all-deps.jar"
@@ -70,28 +64,67 @@
 	(store-path (concat emacs-google-java-format-jar-path emacs-google-java-format-jar-name)))
     (url-copy-file download-url store-path)))
 
-(defun emacs-google-java-format--formatter-failed-p (result)
-  "Detect google-java-format failure in RESULT based on `emacs-google-java-format-fail-token'."
-  (string-match-p (regexp-quote emacs-google-java-format-fail-token) result))
 
-(defun emacs-google-java-format-reformat-buffer ()
-  "Run the google formatter on the current file."
+(defcustom google-java-format-executable
+  (concat (file-name-as-directory user-emacs-directory) "google-java-format/google-java-format")
+  "Location of the google-java-format executable.
+
+A string containing the name or the full path of the executable."
+  :group 'google-java-format
+  :type '(file :must-match t :match #'file-executable-p)
+  :risky t)
+
+;;;###autoload
+(defun google-java-format-region (start end)
+  "Use google-java-format to format the code between START and END.
+If called interactively, uses the region, if there is one.  If
+there is no region, then formats the current line."
+  (interactive
+   (if (use-region-p)
+       (list (region-beginning) (region-end))
+     (list (point) (1+ (point)))))
+  (let ((cursor (point))
+        (temp-buffer (generate-new-buffer " *google-java-format-temp*"))
+        (stderr-file (make-temp-file "google-java-format")))
+    (unwind-protect
+        (let ((status (call-process-region
+                       ;; Note that emacs character positions are 1-indexed,
+                       ;; and google-java-format is 0-indexed, so we have to
+                       ;; subtract 1 from START to line it up correctly.
+                       (point-min) (point-max)
+                       google-java-format-executable
+                       nil (list temp-buffer stderr-file) t
+                       "--offset" (number-to-string (1- start))
+                       "--length" (number-to-string (- end start))
+                       "-"))
+              (stderr
+               (with-temp-buffer
+                 (insert-file-contents stderr-file)
+                 (when (> (point-max) (point-min))
+                   (insert ": "))
+                 (buffer-substring-no-properties
+                  (point-min) (line-end-position)))))
+          (cond
+           ((stringp status)
+            (error "google-java-format killed by signal %s%s" status stderr))
+           ((not (zerop status))
+            (error "google-java-format failed with code %d%s" status stderr))
+           (t (message "google-java-format succeeded%s" stderr)
+              (delete-region (point-min) (point-max))
+              (insert-buffer-substring temp-buffer)
+              (goto-char cursor))))
+      (delete-file stderr-file)
+      (when (buffer-name temp-buffer) (kill-buffer temp-buffer)))))
+
+;;;###autoload
+(defun google-java-format-buffer ()
+  "Use google-java-format to format the current buffer."
   (interactive)
-  (let ((current-line (what-line))
-	(content (shell-command-to-string
-		  (concat "java -jar " emacs-google-java-format-jar-path emacs-google-java-format-jar-name " " buffer-file-name " || echo " emacs-google-java-format-fail-token))))
-    (if (emacs-google-java-format--formatter-failed-p content)
-	(message "Format failed: %s" (car (split-string content emacs-google-java-format-fail-token)))
-      (save-excursion
-	(setf (buffer-string) content)))))
+  (google-java-format-region (point-min) (point-max)))
 
-(defun emacs-google-java-format-indention-settings ()
-    "Setup java indention rules according to google-java-format standard.
-Use this via `(add-hook 'java-mode-hook 'emacs-google-java-format-indention-settings)'"
-    (setq c-basic-offset 2)
-    (c-set-offset 'case-label '+)
-    (c-set-offset 'statement-cont '++))
+;;;###autoload
+(defalias 'google-java-format 'google-java-format-region)
 
-(provide 'emacs-google-java-format)
+(provide 'google-java-format)
 
-;;; emacs-google-java-format.el ends here
+;;; google-java-format.el ends here

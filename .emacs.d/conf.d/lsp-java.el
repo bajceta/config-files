@@ -22,7 +22,7 @@
                               "." 'lsp-ui-peek-find-references
                               "m" 'lsp-ui-sideline-apply-code-actions
                               "o" 'lsp-organize-imports
-                              "f" 'emacs-google-java-format-reformat-buffer
+                              "f" 'google-java-format-buffer
                               "/" 'comment-line
                               )
 
@@ -33,6 +33,7 @@
                               )
 
 (add-hook 'java-mode-hook (lambda ()
+			    (add-hook 'before-save-hook 'google-java-format-buffer 'local)
                             (setq c-basic-offset 4
                                   tab-width 4
                                   indent-tabs-mode nil)))

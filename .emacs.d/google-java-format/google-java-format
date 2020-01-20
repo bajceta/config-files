@@ -1,0 +1,2 @@
+#!/bin/sh
+exec /usr/bin/java -jar '/home/vlada/.emacs.d/google-java-format/google-java-format-1.7-all-deps.jar' "$@"
