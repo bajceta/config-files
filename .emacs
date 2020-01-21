@@ -166,10 +166,10 @@
     ("3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" default)))
  '(org-agenda-files
    (quote
-    ("~/docs/home.org" "~/docs/yale.org" "~/docs/innercore.org" "~/docs/aws-infrastructure.org")))
+    ("~/docs/home.org" "~/docs/yale.org" "~/docs/innercore.org" "~/docs/aws-infrastructure.org")) t)
  '(package-selected-packages
    (quote
-    (smart-mode-line-powerline-theme smart-mode-line helm-mu key-chord evil-escape ivy magit lsp-treemacs evil-leader dracula-theme dap-mode lsp-java lsp-ui company-lsp hydra lsp-mode yasnippet org-link-minor-mode org-jira yaml-mode helm projectile which-key evil))))
+    (php-mode smart-mode-line-powerline-theme smart-mode-line helm-mu key-chord evil-escape ivy magit lsp-treemacs evil-leader dracula-theme dap-mode lsp-java lsp-ui company-lsp hydra lsp-mode yasnippet org-link-minor-mode org-jira yaml-mode helm projectile which-key evil))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -212,3 +212,7 @@
   (key-chord-mode 1)
   (key-chord-define evil-insert-state-map  "jk" 'evil-normal-state)
   )
+
+(setq ivy-re-builders-alist '((counsel-ag . ivy--regex-plus)
+                                (t . ivy--regex-fuzzy)))
+(smart-mode-line-enable)
