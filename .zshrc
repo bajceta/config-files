@@ -87,23 +87,12 @@ alias gs="git status -b -s"
 alias ts="trans sv:en "
 alias gpg="gpg2"
 branch()  {
-    git checkout master && (git branch -D $1 || 1 ) &&  git fetch && git checkout -t origin/$1 
+    git checkout master && (git branch -D $1 || 1 ) &&  git fetch && git checkout -t origin/$1
 }
 
 if [ "$0" = "/usr/sbin/lightdm-session" -a "$DESKTOP_SESSION" = "i3" ]; then
     export $(gnome-keyring-daemon -s)
 fi
-
-#export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
-
-#export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
-
-# [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
-# rvm use 2.2.3
-
-# 
-# o
-#
 
 alias login_production='ssh -i ~/.ssh/aws-portal-eu.pem ubuntu@ec2-54-155-65-10.eu-west-1.compute.amazonaws.com'
 
@@ -124,19 +113,28 @@ alias login_synargus_demo='ssh -i ~/.ssh/aws-synargus-dev-eu.pem ubuntu@ec2-46-1
 alias login_synargus_dev='ssh -i ~/.ssh/aws-synargus-dev-eu.pem ubuntu@ec2-176-34-160-116.eu-west-1.compute.amazonaws.com'
 alias login_synargus_scireg_demo='ssh -i ~/.ssh/synargus-scireg-eu.pem ubuntu@54.72.5.170'
 alias login_synargus_scireg_prod='ssh -i ~/.ssh/synargus-scireg-eu.pem ubuntu@54.195.100.86'
-                                                                     
+
 
 alias login_synargus_version1='ssh -i ~/.ssh/aws-norma-synargus.pem ubuntu@ec2-184-72-131-107.compute-1.amazonaws.com'
 
 export DOCKER_HOST=tcp://localhost:2375
 
-
-export SSH_AUTH_SOCK=~/.ssh/ssh_auth_sock
-# handle ssh key only once 
-if [ ! -S ~/.ssh/ssh_auth_sock ]; then
-  eval `ssh-agent`
-    ln -sf "$SSH_AUTH_SOCK" ~/.ssh/ssh_auth_sock
+# Create agent folder
+if [ ! -d $HOME/.ssh/agent ]; then
+        mkdir -p $HOME/.ssh/agent
 fi
+
+# Start an agent if there isn't one running already.
+HOSTNAME=$(hostname)
+pid=`ps -u$LOGNAME | grep ssh-age | awk '{print $1}'`
+if [ -z "$pid" ]; then
+    echo "create agent folder"
+        AGENT=$(ssh-agent -s)
+        echo $AGENT | grep -v echo > $HOME/.ssh/agent/$HOSTNAME & pid=$!
+        sleep 0.4 # Let it fork and stuff
+fi
+
+source $HOME/.ssh/agent/$HOSTNAME
 ssh-add -l | grep "The agent has no identities" && ssh-add
 
 export VISUAL=vim
@@ -168,4 +166,3 @@ export ANDROID_HOME=/opt/android
 # uninstall by removing these lines or running `tabtab uninstall sls`
 [[ -f /home/vlada/.config/yarn/global/node_modules/tabtab/.completions/sls.zsh ]] && . /home/vlada/.config/yarn/global/node_modules/tabtab/.completions/sls.zsh
 unset DOCKER_HOST
-
