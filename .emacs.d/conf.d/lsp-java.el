@@ -9,7 +9,13 @@
 		 (require 'use-package)))
 (use-package projectile :ensure t)
 (use-package yasnippet :ensure t)
-(use-package lsp-mode :ensure t)
+(use-package lsp-mode :ensure t
+  :custom
+  (lsp-prefer-flymake nil)
+  :config
+  (setq lsp-prefer-flymake nil)
+  )
+
 (use-package hydra :ensure t)
 (use-package company-lsp :ensure t)
 (use-package lsp-ui :ensure t)
@@ -40,7 +46,12 @@
   )
 
 (add-hook 'java-mode-hook (lambda ()
+			    (add-hook 'lsp-mode-hook 'lsp-ui-mode)
+			    (add-hook 'java-mode-hook 'flycheck-mode)
 			    (add-hook 'before-save-hook 'google-java-format-buffer 'local)
                             (setq c-basic-offset 4
                                   tab-width 4
                                   indent-tabs-mode nil)))
+
+(with-eval-after-load 'flycheck
+  (add-hook 'flycheck-mode-hook #'flycheck-inline-mode))
