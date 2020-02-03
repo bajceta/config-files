@@ -21,14 +21,6 @@
 (use-package lsp-ui :ensure t)
 (use-package lsp-treemacs :ensure t)
 (use-package lsp-java :ensure t :after lsp   :config (add-hook 'java-mode-hook 'lsp))
-(use-package dap-mode   :ensure t :after lsp-mode
-  :config
-  (dap-mode t)
-  (dap-ui-mode t)
-  (dap-tooltip-mode 1)
-  (tooltip-mode 1)
-  )
-(use-package dap-java :after (lsp-java))
 
 (evil-leader/set-key-for-mode 'java-mode
   "," 'lsp-ui-peek-find-definitions
@@ -37,6 +29,10 @@
   "o" 'lsp-organize-imports
   "f" 'google-java-format-buffer
   "/" 'comment-line
+  "tt" 'dap-java-run-test-class
+  "tr" 'dap-java-run-test-method
+  "te" 'dap-java-debug-test-class
+  "tw" 'dap-java-debug-test-method
   )
 
 

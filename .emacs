@@ -218,3 +218,9 @@
 (setq ivy-re-builders-alist '((counsel-ag . ivy--regex-plus)
                                 (t . ivy--regex-fuzzy)))
 (smart-mode-line-enable)
+
+(with-eval-after-load 'projectile
+  (defun my-projectile-ignore-project (project-root)
+    (string-match-p (regexp-quote "yale-security-server") project-root)
+    )
+  (setq projectile-ignored-project-function #'my-projectile-ignore-project))
