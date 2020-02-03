@@ -29,7 +29,8 @@ floating_modifier $mod
 # bindsym $mod+Return exec /usr/local/bin/st
 # xset +fp /usr/share/fonts/X11/misc
 # sudo apt install  xfonts-terminus
-bindsym $mod+Return exec /usr/bin/urxvt -fn '-*-terminus-*-*-*-*-18-*-*-*-*-*-*-*' -fb '-*-terminus-bold-*-*-*-18-*-*-*-*-*-*-*'
+#bindsym $mod+Return exec /usr/bin/urxvt -fn '-*-terminus-*-*-*-*-18-*-*-*-*-*-*-*' -fb '-*-terminus-bold-*-*-*-18-*-*-*-*-*-*-*'
+bindsym $mod+Return exec /home/vlada/.local/kitty.app/bin/kitty
 # i3-sensible-terminal
 
 # kill focused window
