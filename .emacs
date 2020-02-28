@@ -1,6 +1,7 @@
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
 (add-to-list 'package-archives '("gnu" . "https://elpa.gnu.org/packages/"))
+(add-to-list 'package-archives '("org" . "https://orgmode.org/elpa/"))
 
 (package-initialize)
 
@@ -16,26 +17,64 @@
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
    (quote
-    ("3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" default)))
+    ("179ff455fbab61b1c5be8da791c53c4a2b65598dc372031be1e95373bd9a1f25" "c433c87bd4b64b8ba9890e8ed64597ea0f8eb0396f4c9a9e01bd20a04d15d358" "0fffa9669425ff140ff2ae8568c7719705ef33b7a927a0ba7c5e2ffcfac09b75" "a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" "3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" default)))
+ '(lsp-prefer-flymake nil)
  '(org-agenda-files
    (quote
-    ("~/docs/home.org" "~/docs/yale.org" "~/docs/innercore.org" "~/docs/aws-infrastructure.org")) t)
+    ("~/docs/home.org" "~/docs/yale.org" "~/docs/innercore.org" "~/docs/aws-infrastructure.org")))
+ '(org-export-backends (quote (ascii html icalendar latex md)))
  '(package-selected-packages
    (quote
-    (flycheck-inline flycheck php-mode smart-mode-line-powerline-theme smart-mode-line helm-mu key-chord evil-escape ivy magit lsp-treemacs evil-leader dracula-theme dap-mode lsp-java lsp-ui company-lsp hydra lsp-mode yasnippet org-link-minor-mode org-jira yaml-mode helm projectile which-key evil))))
+    (org-bullets plantuml-mode org org-grep org-plus-contrib solarized-theme flycheck-inline flycheck php-mode smart-mode-line-powerline-theme smart-mode-line helm-mu key-chord evil-escape ivy magit lsp-treemacs evil-leader dracula-theme dap-mode lsp-java lsp-ui company-lsp hydra lsp-mode yasnippet org-link-minor-mode org-jira yaml-mode helm projectile which-key evil))))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(default ((t (:inherit nil :stipple nil :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 140 :width normal :foundry "nil" :family "Terminus"))))
+ '(fixed-pitch ((t (:family "Inconsolata"))))
+ '(font-latex-sedate-face ((t (:inherit fixed-pitch))))
+ '(font-lock-comment-face ((t (:inherit fixed-pitch))))
+ '(font-lock-function-name-face ((t (:inherit fixed-pitch))))
+ '(header-line ((t (:background "#fbf8ef"))))
+ '(markup-meta-face ((t (:height 140 :family "Terminus"))))
+ '(markup-title-0-face ((t (:inherit markup-gen-face :height 3))))
+ '(markup-title-1-face ((t (:inherit markup-gen-face :height 1.5))))
+ '(markup-title-2-face ((t (:inherit markup-gen-face :height 1.4))))
+ '(markup-title-3-face ((t (:inherit markup-gen-face :weight bold :height 1.3))))
+ '(markup-title-5-face ((t (:inherit markup-gen-face :underline t :height 1.1))))
+ '(org-block ((t (:inherit fixed-pitch))))
+ '(org-code ((t (:inherit (shadow fixed-pitch)))))
+ '(org-document-info ((t)))
+ '(org-document-info-keyword ((t (:inherit (shadow fixed-pitch)))))
+ '(org-document-title ((((class color) (min-colors 16777215)) (:weight bold)) (((class color) (min-colors 255)) (:weight bold))))
+ '(org-done ((t (:strike-through t))))
+ '(org-headline-done ((t (:inherit default :weight bold :font "Terminus" :strike-through t))))
+ '(org-indent ((t (:inherit (org-hide fixed-pitch)))))
+ '(org-level-1 ((((class color) (min-colors 16777215))) (((class color) (min-colors 255)))))
+ '(org-level-2 ((((class color) (min-colors 16777215))) (((class color) (min-colors 255)))))
+ '(org-level-3 ((((class color) (min-colors 16777215))) (((class color) (min-colors 255)))))
+ '(org-level-4 ((((class color) (min-colors 16777215))) (((class color) (min-colors 255)))))
+ '(org-level-5 ((((class color) (min-colors 16777215))) (((class color) (min-colors 255)))))
+ '(org-level-6 ((((class color) (min-colors 16777215))) (((class color) (min-colors 255)))))
+ '(org-level-7 ((((class color) (min-colors 16777215))) (((class color) (min-colors 255)))))
+ '(org-level-8 ((((class color) (min-colors 16777215))) (((class color) (min-colors 255)))))
+ '(org-link ((t (:underline t))))
+ '(org-meta-line ((t (:inherit (font-lock-comment-face fixed-pitch)))))
+ '(org-property-value ((t (:inherit fixed-pitch))) t)
+ '(org-scheduled-previously ((t (:weight bold :underline nil))))
+ '(org-special-keyword ((t (:inherit (font-lock-comment-face fixed-pitch)))))
+ '(org-table ((t (:inherit fixed-pitch))))
+ '(org-tag ((t (:inherit (shadow fixed-pitch) :weight bold :height 0.8))))
+ '(org-verbatim ((t (:inherit (shadow fixed-pitch)))))
+ '(variable-pitch ((t (:weight thin :height 120 :family "ETBembo")))))
 
 (eval-when-compile
   (require 'use-package))
 
 ;; hide menu bar in gui
-(menu-bar-mode -1)
+;; (menu-bar-mode -1)
 
 (setq-default frame-title-format "%b %& emacs")
 
@@ -63,6 +102,15 @@
   :config
   (load-theme 'dracula t))
 
+(load-theme 'solarized-light)
+
+
+(defun my/indent-buffer ()
+  (interactive)
+  (save-excursion
+    (indent-region (point-min) (point-max) nil)))
+
+
 (use-package evil-leader
   :demand t
   :config
@@ -79,7 +127,8 @@
   (evil-leader/set-key "js" 'org-jira-get-issues)
   (evil-leader/set-key "js" 'org-jira-get-issues)
   (evil-leader/set-key "aa" 'org-agenda)
-
+  (evil-leader/set-key "v" 'ivy-push-view)
+  (evil-leader/set-key "i" 'my/indent-buffer)
   ;;(evil-leader/set-key "," 'lsp-ui-peek-find-definitions)
   ;;(evil-leader/set-key "." 'lsp-ui-peek-find-references)
   ;; (evil-leader/set-key "k" 'find-file-in-project)
@@ -89,7 +138,6 @@
 					; (evil-leader/set-key "s" 'swiper)
   ;; Interactive open-buffer switch.
 					; (evil-leader/set-key "b" 'counsel-switch-buffer)
-
   )
 
 
@@ -148,6 +196,7 @@
 
 
 
+
 (define-key evil-normal-state-map (kbd "C-S-j") 'next-buffer)
 (define-key evil-normal-state-map (kbd "C-S-k") 'previous-buffer)
 (define-key evil-normal-state-map (kbd "C-j") 'windmove-down)
@@ -175,7 +224,8 @@
 
 (define-key global-map "\C-ca" 'org-agenda)
 
-(define-key evil-normal-state-map (kbd "C-p") 'helm-mini)
+(define-key evil-normal-state-map (kbd "C-p") 'ivy-switch-buffer)
+
 (define-key evil-normal-state-map (kbd "C-x C-f") 'helm-find-files)
 
 
@@ -216,7 +266,7 @@
   )
 
 (setq ivy-re-builders-alist '((counsel-ag . ivy--regex-plus)
-                                (t . ivy--regex-fuzzy)))
+			      (t . ivy--regex-fuzzy)))
 (smart-mode-line-enable)
 
 (with-eval-after-load 'projectile
@@ -224,3 +274,30 @@
     (string-match-p (regexp-quote "yale-security-server") project-root)
     )
   (setq projectile-ignored-project-function #'my-projectile-ignore-project))
+
+
+
+
+					; (defun my/related-files(file)
+					; (let ((ext-to-test-prefix '(("cpp" . "Test")
+					; ("py" . "test_")
+					; ("java" . "Test"))))
+					; (if-let ((ext (file-name-extension file))
+					; (test-prefix (assoc-default ext ext-to-test-prefix))
+					; (file-name (file-name-nondirectory file)))
+					; (if (string-prefix-p test-prefix file-name)
+					; (let ((suffix (concat "/" (substring file-name (length test-prefix)))))
+					; (list :impl (lambda (other-file)
+					; (string-suffix-p suffix other-file))))
+					; (let ((suffix (concat "/" test-prefix file-name)))
+					; (list :test (lambda (other-file)
+					; (string-suffix-p suffix other-file))))))))
+
+
+					; (projectile-register-project-type
+					; :related-files-fn #'my/related-files)
+
+
+(global-auto-revert-mode t)
+
+(add-hook 'org-babel-after-execute-hook 'org-redisplay-inline-images)

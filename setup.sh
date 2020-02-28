@@ -72,7 +72,10 @@ urxvt() {
 }
 
 kitty() {
-     curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
+    curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
+    git clone --depth 1 git@github.com:dexpota/kitty-themes.git ~/.config/kitty/kitty-themes
+    cd ~/.config/kitty
+    ln -s ./kitty-themes/themes/Solarized_Light.conf ~/.config/kitty/theme.conf
 }
 
 vim() {
@@ -88,6 +91,24 @@ emacs() {
     sudo add-apt-repository ppa:kelleyk/emacs -y
     sudo apt update
     sudo apt install emacs26 -y
+}
+
+latex() {
+    sudo apt install -y texlive-latex-recommended texlive-fonts-recommended texlive-latex-base texlive-latex-extra
+    tlmgr init-usertree
+}
+
+
+latexclass(){
+    mkdir -p $HOME/.texmf/tex/latex/amazing
+    sudo /tlmgr conf texmf TEXMFHOME $HOME/.texmf
+    mv amazingbook.cls $HOME/.texmf/tex/latex/amazing
+    mktexlsr $HOME/.texmf
+    latex amazing-stories-1.tex
+}
+
+plantuml(){
+	sudo apt-get install -y graphviz
 }
 
 youtubeviewer() {
